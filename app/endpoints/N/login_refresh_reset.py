@@ -7,7 +7,7 @@ from app.db.login import check_user
 from app.db.reset import set_time_code, reset_password
 from app.models.login import LoggedIn, Login
 from app.models.refresh import RefreshResponse
-from app.models.reset import Reset
+from app.models.reset import Reset, ResetInit
 from app.send_mesage.send_code import send_email
 from app.tokens.generate import decode_token, create_access_token
 from settings import settings
@@ -36,6 +36,8 @@ async def refresh(refresh_token: Annotated[str | None, Header()] = None):
                 'id':decoded_token['id'],
                 'role':decoded_token['role'],
                 'code':decoded_token['code'],
+                'mail':decoded_token['mail'],
+                'group':decoded_token['group']
             }),
         refresh_token=create_access_token(
             expires_delta=timedelta(settings.REFRESH_TOKEN_EXPIRED_HOURS),
@@ -44,27 +46,15 @@ async def refresh(refresh_token: Annotated[str | None, Header()] = None):
     return response
 
 
-@login_reset_refresh.get('/reset')
-async def reset(access_token: Annotated[str | None, Header()] = None):
-    token = decode_token(access_token)
+@login_reset_refresh.post('/reset')
+async def reset(password: ResetInit):
     code = randint(1000, 9999)
-    response = await set_time_code(token['id'], code)
-    send_email(to_email=token['mail'], subject='Password Reset Code', body=f'Your verification code is: {code}')
-    if response:
-        raise HTTPException(status_code=200, detail='Time code is ready')
-    elif response is False:
-        raise HTTPException(status_code=404, detail='No such user')
-    else:
-        raise HTTPException(status_code=500, detail=f'DB error {response}')
+    await set_time_code(password.mail, code)
+    send_email(to_email=password.mail, subject='Password Reset Code', body=f'Your verification code is: {code}')
+    raise HTTPException(status_code=200, detail='Time code is ready')
 
 
 @login_reset_refresh.post('/reset/confirm')
-async def reset_confirm(request: Reset, access_token: Annotated[str | None, Header()] = None):
-    token = decode_token(access_token)
-    response = await reset_password(token['id'], request)
-    if response is True:
-        raise HTTPException(status_code=200, detail='A new password has been set')
-    elif response is False:
-        raise HTTPException(status_code=404, detail='No such user or reset code is wrong')
-    else:
-        raise HTTPException(status_code=500, detail=f'DB error {response}')
+async def reset_confirm(request: Reset):
+    await reset_password(request)
+    raise HTTPException(status_code=200, detail='A new password has been set')

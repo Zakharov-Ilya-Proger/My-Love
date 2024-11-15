@@ -1,37 +1,40 @@
+
+
 import psycopg2
+from fastapi import HTTPException
 
+from app.db.config import connector
 from app.models.reset import Reset
-from config import connector
 
-async def set_time_code(user_id, random_code):
+async def set_time_code(mail, random_code):
     conn = psycopg2.connect(**connector)
     cur = conn.cursor()
     try:
-        cur.execute('''UPDATE users SET reset_code = %s WHERE id = %s''',
-                    (random_code, user_id))
+        cur.execute('''UPDATE users SET reset_code = %s WHERE mail = %s''',
+                    (random_code, mail))
         cur.close()
         conn.commit()
         conn.close()
         if cur.rowcount == 0:
-            return False
+            raise HTTPException(status_code=404, detail='User not found')
         else:
             return True
     except (Exception, psycopg2.DataError) as e:
-        return e
+        raise HTTPException(status_code=500, detail=f'DB Error: {e}')
 
 
-async def reset_password(user_id, request: Reset):
+async def reset_password(request: Reset):
     conn = psycopg2.connect(**connector)
     cur = conn.cursor()
     try:
-        cur.execute('''UPDATE users SET password = %s WHERE id = %s AND reset_code = %s''',
-                    (request.password, user_id, request.reset_code))
+        cur.execute('''UPDATE users SET password = %s WHERE mail = %s AND reset_code = %s''',
+                    (request.password, request.mail, request.reset_code))
         cur.close()
         conn.commit()
         conn.close()
         if cur.rowcount == 0:
-            return False
+            raise HTTPException(status_code=404, detail='User not found or code is incorrect')
         else:
             return True
     except (Exception, psycopg2.DataError) as e:
-        return e
+        raise HTTPException(status_code=500, detail=f'DB Error: {e}')

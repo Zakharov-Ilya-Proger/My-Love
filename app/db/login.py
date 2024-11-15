@@ -12,14 +12,14 @@ async def check_user(user: Login):
     cur = conn.cursor()
     try:
         if user.mail != '':
-            cur.execute('''SELECT users.id, users.name, secondname, roles.name, code, mail 
+            cur.execute('''SELECT users.id, users.name, secondname, roles.name, code, mail, groups.group_code 
                                     FROM users
                                     JOIN roles ON roles.id = users.role_id
                                     JOIN groups ON groups.id = users.group_id
                                     WHERE mail = %s AND password = %s''',
                         (user.mail, user.password))
         else:
-            cur.execute('''SELECT users.id, users.name, secondname, roles.name, code, mail
+            cur.execute('''SELECT users.id, users.name, secondname, roles.name, code, mail, groups.group_code
                                     FROM users
                                     JOIN roles ON roles.id = users.role_id
                                     JOIN groups ON groups.id = users.group_id
@@ -39,14 +39,17 @@ async def check_user(user: Login):
                                              'id': data[0],
                                              'role': data[3],
                                              'code': data[4],
-                                             'mail': data[5]},
+                                             'mail': data[5],
+                                             'group': data[6]},
                                               expires_delta=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
                     refresh_token=create_access_token({
                                              'id': data[0],
                                              'role': data[3],
                                              'code': data[4],
                                              'name': data[1],
-                                             'secondname': data[2]
+                                             'secondname': data[2],
+                                             'mail': data[5],
+                                             'group': data[6]
                                             }, expires_delta=settings.REFRESH_TOKEN_EXPIRED_HOURS)), True
     except (Exception, psycopg2.DataError) as e:
         return {'Error': str(e)}, False
