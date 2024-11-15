@@ -59,4 +59,4 @@ async def reset_confirm(request: Reset):
     raise HTTPException(status_code=200, detail='A new password has been set')
 
 if __name__ == '__main__':
-    uvicorn.run(app, host='0.0.0.0', port=3002)
+    uvicorn.run(app, host='0.0.0.0', port=settings.APP_PORT)
