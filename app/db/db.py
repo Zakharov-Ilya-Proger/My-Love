@@ -1,10 +1,10 @@
 import psycopg2
 from fastapi import HTTPException
 
-from config import connector
-from models import Login, LoggedIn, Reset
+from app.db.config import connector
+from app.db.models import Login, LoggedIn, Reset
+from app.db.tokens import create_access_token
 from settings import settings
-from tokens import create_access_token
 
 
 async def check_user(user: Login):
