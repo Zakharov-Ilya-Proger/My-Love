@@ -28,7 +28,7 @@ async def refresh(refresh_token: Annotated[str | None, Header()] = None):
     decoded_token.pop('exp')
     response = RefreshResponse(
         access_token=create_access_token(
-            expires_delta=timedelta(settings.ACCESS_TOKEN_EXPIRE_MINUTES),
+            expires_delta=timedelta(minutes=15),
             data={
                 'id': decoded_token['id'],
                 'role': decoded_token['role'],
@@ -36,7 +36,7 @@ async def refresh(refresh_token: Annotated[str | None, Header()] = None):
                 'mail': decoded_token['mail']
             }),
         refresh_token=create_access_token(
-            expires_delta=timedelta(settings.REFRESH_TOKEN_EXPIRED_HOURS),
+            expires_delta=timedelta(days=1),
             data=decoded_token),
     )
     return response

@@ -17,7 +17,7 @@ def create_access_token(data: dict, expires_delta: timedelta):
     elif expires_delta == timedelta(minutes=15):
         if minutes_after_23 >= 45:
             expire = (datetime.combine(datetime.today() + timedelta(days=1), datetime.min.time()) +
-                      timedelta(minute=time_now.minute % 45))
+                      timedelta(minute=15))
         else:
             expire = time_now + expires_delta
     else:

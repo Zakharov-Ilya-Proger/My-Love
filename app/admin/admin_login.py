@@ -7,7 +7,6 @@ from app.db.admin_db import check_admin, set_time_code_admin, reset_password_adm
 from app.db.models import LoggedIn, Login, ResetInit, Reset, RefreshResponse
 from app.tokens import create_access_token, decode_token
 from app.send_code import send_email
-from settings import settings
 
 admin_router = APIRouter()
 
@@ -29,7 +28,7 @@ async def refresh(refresh_token: Annotated[str | None, Header()] = None):
     decoded_token.pop('exp')
     response = RefreshResponse(
         access_token=create_access_token(
-            expires_delta=datetime.timedelta(settings.ACCESS_TOKEN_EXPIRE_MINUTES),
+            expires_delta=datetime.timedelta(minutes=15),
             data={
                 'id': decoded_token['id'],
                 'role': decoded_token['role'],
@@ -37,7 +36,7 @@ async def refresh(refresh_token: Annotated[str | None, Header()] = None):
                 'mail': decoded_token['mail']
             }),
         refresh_token=create_access_token(
-            expires_delta=datetime.timedelta(settings.REFRESH_TOKEN_EXPIRED_HOURS),
+            expires_delta=datetime.timedelta(days=1),
             data=decoded_token),
     )
     return response

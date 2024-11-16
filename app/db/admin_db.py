@@ -1,10 +1,11 @@
+from datetime import timedelta
+
 import psycopg2
 from fastapi import HTTPException
 
 from app.db.config import connector
 from app.db.models import Login, LoggedIn, Reset
 from app.tokens import create_access_token
-from settings import settings
 
 
 async def check_admin(user: Login):
@@ -37,7 +38,7 @@ async def check_admin(user: Login):
                     'role': data[3],
                     'code': data[4],
                     'mail': data[5]},
-                    expires_delta=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
+                    expires_delta=timedelta(minutes=15)),
                 refresh_token=create_access_token({
                     'id': data[0],
                     'role': data[3],
@@ -45,7 +46,7 @@ async def check_admin(user: Login):
                     'name': data[1],
                     'secondname': data[2],
                     'mail': data[5]
-                }, expires_delta=settings.REFRESH_TOKEN_EXPIRED_HOURS)), True
+                }, expires_delta=timedelta(days=1))), True
     except (Exception, psycopg2.DataError) as e:
         raise HTTPException(status_code=500, detail=f'DB Error: {e}')
     finally:
