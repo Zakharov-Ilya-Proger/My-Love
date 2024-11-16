@@ -1,5 +1,5 @@
+from datetime import datetime
 from typing import List
-import timestamp
 from pydantic import BaseModel
 
 class Lesson(BaseModel):
@@ -10,13 +10,13 @@ class Lesson(BaseModel):
     auditory_capacity: int
     branch_name: str
     branch_address: str
-    start_time: timestamp
-    end_time: timestamp
+    start_time:datetime
+    end_time: datetime
     teacher_name: str
     teacher_secondname: str
     teacher_lastname: str
     task: str
-    deadline: timestamp
+    deadline: datetime
 
 class Lessons(BaseModel):
     lessons: List[Lesson]
