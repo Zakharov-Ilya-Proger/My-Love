@@ -1,8 +1,8 @@
 from pydantic import BaseModel
 
 class Login(BaseModel):
-    phone: str = ''
-    mail: str = ''
+    phone: str = None
+    mail: str = None
     password: str
 
 

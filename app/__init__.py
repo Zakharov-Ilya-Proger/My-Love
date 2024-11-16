@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 from app.login import login_endpoint
-from main import main_router
+from .main import main_router
 
 app = FastAPI()
 

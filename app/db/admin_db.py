@@ -12,7 +12,7 @@ async def check_admin(user: Login):
     conn = psycopg2.connect(**connector)
     cur = conn.cursor()
     try:
-        if user.mail != '':
+        if user.mail is not None:
             cur.execute('''SELECT users.id, users.name, secondname, roles.name, code, mail, lastname
                                     FROM admins as users
                                     JOIN roles ON roles.id = users.role_id
