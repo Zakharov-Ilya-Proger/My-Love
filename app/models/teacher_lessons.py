@@ -3,7 +3,7 @@ from typing import List
 from pydantic import BaseModel
 
 
-class Lesson(BaseModel):
+class LessonTeacher(BaseModel):
     id: int
     subject: str
     group: str
@@ -13,12 +13,9 @@ class Lesson(BaseModel):
     branch_address: str
     start_time: datetime
     end_time: datetime
-    teacher_name: str
-    teacher_secondname: str
-    teacher_lastname: str
     task: str
     deadline: datetime
 
 
-class Lessons(BaseModel):
-    lessons: List[Lesson]
+class LessonsTeacher(BaseModel):
+    lessons: List[LessonTeacher]

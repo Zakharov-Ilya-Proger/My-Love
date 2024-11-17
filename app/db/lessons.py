@@ -20,19 +20,22 @@ async def get_lessons_from_db(group):
             JOIN public.teachers u on u.id = l.teacher_id
             JOIN public.tasks t on l.id = t.lesson_id
         WHERE group_code = %s
+        AND (start_time::date >= CURRENT_DATE)
         ''', (group,))
         data = cur.fetchall()
         if data is None:
             raise HTTPException(status_code=404, detail="No lessons for this group")
-        return Lessons(lessons=[Lesson(id=row[0],
-                                       subject=row[1], group=row[2],
-                                       auditory_name=row[3], auditory_capacity=row[4],
-                                       branch_name=row[5], branch_address=row[6],
-                                       start_time=row[7], end_time=row[8],
-                                       teacher_name=row[9], teacher_secondname=row[10],
-                                       teacher_lastname=row[11], task=row[12],
-                                       deadline=row[13])
-                                for row in data])
+        return Lessons(lessons=
+        [Lesson(
+            id=row[0],
+            subject=row[1], group=row[2],
+            auditory_name=row[3], auditory_capacity=row[4],
+            branch_name=row[5], branch_address=row[6],
+            start_time=row[7], end_time=row[8],
+            teacher_name=row[9], teacher_secondname=row[10],
+            teacher_lastname=row[11], task=row[12],
+            deadline=row[13])
+            for row in data])
     except (Exception, psycopg2.DatabaseError) as e:
         raise HTTPException(status_code=500, detail=f'DB error {e}')
 
@@ -65,6 +68,3 @@ async def get_lesson_from_db(lesson_id):
                       task=data[12], deadline=data[13])
     except (Exception, psycopg2.DatabaseError) as e:
         raise HTTPException(status_code=500, detail=f'DB error {e}')
-
-
-
