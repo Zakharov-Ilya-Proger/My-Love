@@ -62,11 +62,18 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Upload artifact (if output directory exists)
-        if: always() && exists('output')
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './output'
+        run: |
+          if [ -d "output" ]; then
+            echo "Uploading artifact..."
+            tar -czf output.tar.gz output
+            echo "::set-output name=artifact::output.tar.gz"
+          else
+            echo "No output directory found. Skipping upload."
+          fi
+        id: upload_step
 
       - name: Deploy to GitHub Pages
-        id: deployment
+        if: steps.upload_step.outputs.artifact
         uses: actions/deploy-pages@v4
+        with:
+          path: ${{ steps.upload_step.outputs.artifact }}
