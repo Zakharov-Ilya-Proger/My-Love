@@ -1,4 +1,4 @@
-name: Deploy Swagger Documentation
+name: Deploy Swagger Documentation to GitHub Pages
 
 on:
   push:
@@ -6,15 +6,25 @@ on:
       - UsersMicroservice
       - LoginMicroservice
       - adminMicroservice
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Гарантирует доступ ко всем веткам
+          fetch-depth: 0  # Забираем все ветки для доступа
 
       - name: Check if /docs exists
         run: |
@@ -28,24 +38,30 @@ jobs:
       - name: Modify swagger.json (if exists)
         run: |
           if [ -f "./docs/swagger.json" ]; then
+            echo "Modifying swagger.json"
             sed -i '1s|{|{"swagger": "2.0",|' ./docs/swagger.json
+            cat ./docs/swagger.json
+          else
+            echo "No swagger.json found."
           fi
 
       - name: Copy /docs to output directory
         run: |
+          # Получаем имя текущей ветки и преобразуем его в тег (user, login, admin)
           BRANCH_NAME=$(echo "${GITHUB_REF##*/}" | tr '[:upper:]' '[:lower:]' | sed 's/microservice//')
           mkdir -p output/$BRANCH_NAME
           cp -r ./docs/* output/$BRANCH_NAME/
+          echo "Contents of output/$BRANCH_NAME:"
+          ls output/$BRANCH_NAME
 
-      - name: Checkout to swagger-page branch
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git checkout swagger-page || git checkout -b swagger-page
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
-      - name: Copy output to swagger-page
-        run: |
-          cp -r output/* .
-          git add .
-          git commit -m "Update Swagger documentation from ${GITHUB_REF##*/}"
-          git push origin swagger-page
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './output'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
