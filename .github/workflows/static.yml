@@ -35,10 +35,11 @@ jobs:
       - name: Copy /docs to output directory if exists
         run: |
           if [ -d "./docs" ]; then
-            echo "Docs directory exists."
+            echo "Docs directory exists for $BRANCH_NAME."
             cp -r ./docs/* output/$BRANCH_NAME/
           else
-            echo "No docs directory found. Creating empty output directory for branch $BRANCH_NAME."
+            echo "No docs directory found for $BRANCH_NAME. Creating placeholder index.html."
+            echo "<!DOCTYPE html><html><body><h1>No documentation available for $BRANCH_NAME</h1></body></html>" > output/$BRANCH_NAME/index.html
           fi
           echo "Contents of output/$BRANCH_NAME:"
           ls output/$BRANCH_NAME || echo "Directory is empty."
@@ -46,11 +47,11 @@ jobs:
       - name: Modify swagger.json (if exists)
         run: |
           if [ -f "output/${BRANCH_NAME}/swagger.json" ]; then
-            echo "Modifying swagger.json"
+            echo "Modifying swagger.json for $BRANCH_NAME"
             sed -i '1s|{|{"swagger": "2.0",|' output/${BRANCH_NAME}/swagger.json
             cat output/${BRANCH_NAME}/swagger.json
           else
-            echo "No swagger.json found."
+            echo "No swagger.json found for $BRANCH_NAME."
           fi
 
       - name: Create root HTML file
