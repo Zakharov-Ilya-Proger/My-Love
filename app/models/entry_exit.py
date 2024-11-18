@@ -7,10 +7,15 @@ from pydantic import BaseModel
 class EnEx(BaseModel):
     branch_name: str
     branch_address: str
-    entry_time: datetime
-    exit_time: datetime
+    time: datetime
     status: str
 
 
 class EnExHistory(BaseModel):
     history: List[EnEx]
+
+
+class AddEnterExit(BaseModel):
+    time: datetime
+    status: str
+    branch_id: str

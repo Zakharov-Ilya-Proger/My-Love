@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 
-main_router = APIRouter()
+main = APIRouter()
 
 
-@main_router.get('/')
+@main.get('/')
 def index():
     return {'message': 'Welcome to the main page!'}
