@@ -3,7 +3,9 @@ name: Deploy Swagger Documentation to GitHub Pages
 on:
   push:
     branches:
-      - main  # Триггер для изменений в main
+      - UsersMicroservice
+      - LoginMicroservice
+      - adminMicroservice
   workflow_dispatch:
 
 permissions:
@@ -46,8 +48,12 @@ jobs:
 
             # Модификация swagger.json, если существует
             if [ -f "output/${BRANCH_NAME}/swagger.json" ]; then
-              echo "Modifying swagger.json for $BRANCH_NAME"
-              sed -i '1s|{|{"swagger": "2.0",|' output/${BRANCH_NAME}/swagger.json
+              if grep -q '"swagger":' output/${BRANCH_NAME}/swagger.json; then
+                echo "swagger.json already contains 'swagger' key for $BRANCH_NAME. No modification needed."
+              else
+                echo "Adding 'swagger': '2.0' to swagger.json for $BRANCH_NAME"
+                sed -i '1s|{|{"swagger": "2.0",|' output/${BRANCH_NAME}/swagger.json
+              fi
             else
               echo "No swagger.json found for $BRANCH_NAME."
             fi
