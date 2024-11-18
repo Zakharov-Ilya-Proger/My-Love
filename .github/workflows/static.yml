@@ -49,10 +49,14 @@ jobs:
         run: |
           # Получаем имя текущей ветки и преобразуем его в тег (user, login, admin)
           BRANCH_NAME=$(echo "${GITHUB_REF##*/}" | tr '[:upper:]' '[:lower:]' | sed 's/microservice//')
-          mkdir -p output/$BRANCH_NAME
-          cp -r ./docs/* output/$BRANCH_NAME/
-          echo "Contents of output/$BRANCH_NAME:"
-          ls output/$BRANCH_NAME
+          if [ -d "./docs" ]; then
+            mkdir -p output/$BRANCH_NAME
+            cp -r ./docs/* output/$BRANCH_NAME/
+            echo "Contents of output/$BRANCH_NAME:"
+            ls output/$BRANCH_NAME
+          else
+            echo "No docs directory found. Skipping copy."
+          fi
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
