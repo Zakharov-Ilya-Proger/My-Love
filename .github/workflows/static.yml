@@ -3,9 +3,7 @@ name: Deploy Swagger Documentation to GitHub Pages
 on:
   push:
     branches:
-      - UsersMicroservice
-      - LoginMicroservice
-      - adminMicroservice
+      - main  # Триггер для изменений в main
   workflow_dispatch:
 
 permissions:
@@ -26,33 +24,37 @@ jobs:
         with:
           fetch-depth: 0  # Забираем все ветки для доступа
 
-      - name: Determine branch and create output directory
+      - name: Loop through target branches
         run: |
-          BRANCH_NAME=$(echo "${GITHUB_REF##*/}" | tr '[:upper:]' '[:lower:]' | sed 's/microservice//')
-          mkdir -p output/$BRANCH_NAME
-          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+          branches=("UsersMicroservice" "LoginMicroservice" "adminMicroservice")
+          for branch in "${branches[@]}"; do
+            echo "Checking out branch: $branch"
+            git checkout $branch
 
-      - name: Copy /docs to output directory if exists
-        run: |
-          if [ -d "./docs" ]; then
-            echo "Docs directory exists for $BRANCH_NAME."
-            cp -r ./docs/* output/$BRANCH_NAME/
-          else
-            echo "No docs directory found for $BRANCH_NAME. Creating placeholder index.html."
-            echo "<!DOCTYPE html><html><body><h1>No documentation available for $BRANCH_NAME</h1></body></html>" > output/$BRANCH_NAME/index.html
-          fi
-          echo "Contents of output/$BRANCH_NAME:"
-          ls output/$BRANCH_NAME || echo "Directory is empty."
+            # Определение имени подкаталога
+            BRANCH_NAME=$(echo "$branch" | tr '[:upper:]' '[:lower:]' | sed 's/microservice//')
+            mkdir -p output/$BRANCH_NAME
 
-      - name: Modify swagger.json (if exists)
-        run: |
-          if [ -f "output/${BRANCH_NAME}/swagger.json" ]; then
-            echo "Modifying swagger.json for $BRANCH_NAME"
-            sed -i '1s|{|{"swagger": "2.0",|' output/${BRANCH_NAME}/swagger.json
-            cat output/${BRANCH_NAME}/swagger.json
-          else
-            echo "No swagger.json found for $BRANCH_NAME."
-          fi
+            # Проверка и копирование файлов из /docs
+            if [ -d "./docs" ]; then
+              echo "Docs directory exists for $branch."
+              cp -r ./docs/* output/$BRANCH_NAME/
+            else
+              echo "No docs directory found for $branch. Creating placeholder index.html."
+              echo "<!DOCTYPE html><html><body><h1>No documentation available for $BRANCH_NAME</h1></body></html>" > output/$BRANCH_NAME/index.html
+            fi
+
+            # Модификация swagger.json, если существует
+            if [ -f "output/${BRANCH_NAME}/swagger.json" ]; then
+              echo "Modifying swagger.json for $BRANCH_NAME"
+              sed -i '1s|{|{"swagger": "2.0",|' output/${BRANCH_NAME}/swagger.json
+            else
+              echo "No swagger.json found for $BRANCH_NAME."
+            fi
+
+            echo "Contents of output/$BRANCH_NAME:"
+            ls output/$BRANCH_NAME || echo "Directory is empty."
+          done
 
       - name: Create root HTML file
         run: |
@@ -91,6 +93,7 @@ jobs:
 
       - name: Output deployed URLs
         run: |
-          BRANCH_NAME=$(echo "${GITHUB_REF##*/}" | tr '[:upper:]' '[:lower:]' | sed 's/microservice//')
-          echo "Deployed URL for branch $BRANCH_NAME: https://<your-username>.github.io/<your-repository>/$BRANCH_NAME"
           echo "Root URL: https://<your-username>.github.io/<your-repository>/"
+          echo "Users Microservice URL: https://<your-username>.github.io/<your-repository>/users/"
+          echo "Login Microservice URL: https://<your-username>.github.io/<your-repository>/login/"
+          echo "Admin Microservice URL: https://<your-username>.github.io/<your-repository>/admin/"
