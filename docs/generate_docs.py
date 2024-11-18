@@ -31,7 +31,7 @@ swagger_html_content = """
     <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.14.0/swagger-ui-bundle.js"></script>
     <script>
         window.onload = function() {
-            const ui = SwaggerUIBundle({{
+            const ui = SwaggerUIBundle({
                 url: 'swagger.json',
                 dom_id: '#swagger-ui',
                 presets: [
@@ -39,7 +39,7 @@ swagger_html_content = """
                     SwaggerUIBundle.SwaggerUIStandalonePreset
                 ],
                 layout: "BaseLayout"
-            }});
+            });
         };
     </script>
 </body>
