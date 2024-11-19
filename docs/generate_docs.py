@@ -1,4 +1,6 @@
 import os
+import sys
+
 from fastapi.openapi.utils import get_openapi
 import json
 
@@ -13,7 +15,7 @@ openapi_schema = get_openapi(
     routes=app.routes,
 )
 
-with open("swagger.json", "w") as f:
+with open("docs\\swagger.json", "w") as f:
     json.dump(openapi_schema, f)
 
 
@@ -46,8 +48,9 @@ swagger_html_content = """
 </html>
 """
 
-with open("index.html", "w") as f:
+with open("docs\\index.html", "w") as f:
     f.write(swagger_html_content)
+sys.exit(0)
 
 if __name__ == '__main__':
     os.system('python generate_docs.py')
