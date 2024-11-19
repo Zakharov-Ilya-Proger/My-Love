@@ -22,9 +22,9 @@ async def login(request: Login):
         return response
 
 
-@admin_router.get('/refresh', response_model=RefreshResponse)
-async def refresh(refresh_token: Annotated[str | None, Header()] = None):
-    decoded_token = decode_token(refresh_token)
+@admin_router.get('/refresh', response_model=RefreshResponse, description='Refresh token')
+async def refresh(authorization: Annotated[str | None, Header()] = None):
+    decoded_token = decode_token(authorization)
     decoded_token.pop('exp')
     response = RefreshResponse(
         access_token=create_access_token(
