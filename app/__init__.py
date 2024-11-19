@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 
-from .admin.admin_login import admin_router
-from .main import main_router
-from .teacher.teacher_login import teacher_router
-from .user.user_login import user_router
-
 app = FastAPI()
+
+from app.endpoints.admin_login import admin_router
+from .main import main_router
+from app.endpoints.teacher_login import teacher_router
+from app.endpoints.user_login import user_router
 
 app.include_router(main_router)
 app.include_router(admin_router, prefix="/admin", tags=["admin"])
