@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-app = FastAPI(openapi_version="3.0.0")
+app = FastAPI()
 
 from app.endpoints.main import main
 from app.endpoints.student import student

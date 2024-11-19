@@ -7,15 +7,14 @@ from app.__init__ import app
 openapi_schema = get_openapi(
     title=app.title,
     version=app.version,
-    openapi_version='3.0.0',
+    openapi_version="3.1.0",  # Update to OpenAPI version 3.1.0
     description=app.description,
     routes=app.routes,
 )
 
-# Save the OpenAPI schema to a file
-os.makedirs("docs", exist_ok=True)
-with open("docs/swagger.json", "w") as f:
-    json.dump(openapi_schema, f)
+
+with open("docs\\swagger.json", "w") as f:
+    json.dump(openapi_schema, f, indent=2)
 
 # Create the Swagger UI HTML content
 swagger_html_content = """
@@ -25,11 +24,12 @@ swagger_html_content = """
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swagger UI</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.14.0/swagger-ui.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css" />
 </head>
 <body>
     <div id="swagger-ui"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.14.0/swagger-ui-bundle.js"></script>
+    <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+    <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-standalone-preset.js"></script>
     <script>
         window.onload = function() {
             const ui = SwaggerUIBundle({
@@ -37,10 +37,11 @@ swagger_html_content = """
                 dom_id: '#swagger-ui',
                 presets: [
                     SwaggerUIBundle.presets.apis,
-                    SwaggerUIBundle.SwaggerUIStandalonePreset
+                    SwaggerUIStandalonePreset
                 ],
                 layout: "BaseLayout"
             });
+            window.ui = ui;
         };
     </script>
 </body>
@@ -48,7 +49,7 @@ swagger_html_content = """
 """
 
 # Save the Swagger UI HTML content to a file
-with open("docs/index.html", "w") as f:
+with open("docs\\index.html", "w") as f:
     f.write(swagger_html_content)
 
 if __name__ == '__main__':
