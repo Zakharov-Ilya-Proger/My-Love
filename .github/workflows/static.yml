@@ -3,7 +3,9 @@ name: Deploy Swagger Documentation to GitHub Pages
 on:
   push:
     branches:
-      - '*'
+      - UsersMicroservice
+      - LoginMicroservice
+      - adminMicroservice
   workflow_dispatch:
 
 permissions:
