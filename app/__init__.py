@@ -3,7 +3,7 @@ from fastapi import FastAPI
 app = FastAPI()
 
 from app.endpoints.admin_login import admin_router
-from .main import main_router
+from app.endpoints.main import main_router
 from app.endpoints.teacher_login import teacher_router
 from app.endpoints.user_login import user_router
 
