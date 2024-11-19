@@ -47,12 +47,13 @@ jobs:
             # Модификация swagger.json, если существует
             if [ -f "output/${BRANCH_NAME}/swagger.json" ]; then
               if grep -q '"swagger":' output/${BRANCH_NAME}/swagger.json; then
-                echo "swagger.json already contains 'swagger' key for $BRANCH_NAME. No modification needed."
-              elif grep -q '"openapi": "3.0.0"' output/${BRANCH_NAME}/swagger.json; then
-                echo "swagger.json contains 'openapi: 3.0.0' for $BRANCH_NAME. No modification needed."
+                echo "swagger.json contains 'swagger' key for $BRANCH_NAME. No modification needed."
+              elif grep -q '"openapi":' output/${BRANCH_NAME}/swagger.json; then
+                echo "Replacing 'openapi' version with '3.1.0' for $BRANCH_NAME."
+                sed -i 's/"openapi": *"[^"]*"/"openapi": "3.1.0"/' output/${BRANCH_NAME}/swagger.json
               else
-                echo "Adding 'swagger': '2.0' to swagger.json for $BRANCH_NAME"
-                sed -i '1s|{|{"swagger": "2.0",|' output/${BRANCH_NAME}/swagger.json
+                echo "Adding 'openapi: 3.1.0' to swagger.json for $BRANCH_NAME."
+                sed -i '1s|{|{"openapi": "3.1.0",|' output/${BRANCH_NAME}/swagger.json
               fi
             else
               echo "No swagger.json found for $BRANCH_NAME."
