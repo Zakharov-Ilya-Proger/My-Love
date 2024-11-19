@@ -39,4 +39,3 @@ async def get_student_info(access_token: Annotated[str | None, Header()] = None)
     if token is None or token['role'] != 'student':
         raise HTTPException(status_code=403, detail='Not enough permissions')
     return await get_student_by_token_db(token['id'])
-

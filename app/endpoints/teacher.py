@@ -81,7 +81,7 @@ async def get_entrances(access_token: Annotated[str | None, Header()] = None):
     token = decode_token(access_token)
     if token is None or token['role'] != 'student':
         raise HTTPException(status_code=403, detail='Not enough permissions')
-    return  await db_get_person_entrances(
+    return await db_get_person_entrances(
         token['id'],
         'teacher_id',
         'entryexithistory_teacher')

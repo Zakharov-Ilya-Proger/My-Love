@@ -3,6 +3,7 @@ from fastapi import HTTPException
 from app.models.teacher_lessons import LessonsTeacher, LessonTeacher
 from .config import connector
 
+
 async def get_teacher_lessons(teacher_id):
     conn = psycopg2.connect(**connector)
     cur = conn.cursor()

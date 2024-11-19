@@ -2,6 +2,7 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
+
 class StudentsOnLesson(BaseModel):
     lesson_id: int
     students_id: list

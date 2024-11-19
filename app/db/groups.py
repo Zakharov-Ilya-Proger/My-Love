@@ -16,7 +16,7 @@ async def get_groups_db(teacher_id):
         JOIN public.students s on g.id = s.group_id
         WHERE teacher_id = %s
         ORDER BY group_code
-        ''',(teacher_id,))
+        ''', (teacher_id,))
 
         rows = cur.fetchall()
         if rows is None:
@@ -24,7 +24,7 @@ async def get_groups_db(teacher_id):
         result = GroupInfo()
         for row in rows:
             group_code = row[0]
-            student_info = StudentGroupInfo(name=row[1],secondname=row[2], lastname=row[3], code=row[4], id=row[5])
+            student_info = StudentGroupInfo(name=row[1], secondname=row[2], lastname=row[3], code=row[4], id=row[5])
             if group_code not in result:
                 result.groups[group_code] = []
             result.groups[group_code].append(student_info)
