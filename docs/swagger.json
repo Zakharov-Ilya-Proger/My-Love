@@ -30,26 +30,7 @@
           "Student"
         ],
         "summary": "Get Entrances",
-        "description": "\u0422\u0443\u0442 \u043d\u0430\u0434\u043e \u043f\u0435\u0440\u0435\u0434\u0430\u0432\u0430\u0442\u044c \u0442\u043e\u043a\u0435\u043d \u0434\u043e\u0441\u0442\u0443\u043f\u0430, access_token \u0432\u044b\u0434\u0430\u044e\u0449\u0438\u0439\u0441\u044f \u043f\u0440\u0438 \u043b\u043e\u0433\u0438\u043d\u0435",
         "operationId": "get_entrances_student_entrances_get",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -60,18 +41,13 @@
                 }
               }
             }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
           }
-        }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/student/lessons": {
@@ -80,26 +56,7 @@
           "Student"
         ],
         "summary": "Get Lessons",
-        "description": "\u0422\u0443\u0442 \u043d\u0430\u0434\u043e \u043f\u0435\u0440\u0435\u0434\u0430\u0432\u0430\u0442\u044c \u0442\u043e\u043a\u0435\u043d \u0434\u043e\u0441\u0442\u0443\u043f\u0430, access_token \u0432\u044b\u0434\u0430\u044e\u0449\u0438\u0439\u0441\u044f \u043f\u0440\u0438 \u043b\u043e\u0433\u0438\u043d\u0435",
         "operationId": "get_lessons_student_lessons_get",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -110,18 +67,13 @@
                 }
               }
             }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
           }
-        }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/student/info": {
@@ -130,26 +82,7 @@
           "Student"
         ],
         "summary": "Get Student Info",
-        "description": "\u0422\u0443\u0442 \u043d\u0430\u0434\u043e \u043f\u0435\u0440\u0435\u0434\u0430\u0432\u0430\u0442\u044c \u0442\u043e\u043a\u0435\u043d \u0434\u043e\u0441\u0442\u0443\u043f\u0430, access_token \u0432\u044b\u0434\u0430\u044e\u0449\u0438\u0439\u0441\u044f \u043f\u0440\u0438 \u043b\u043e\u0433\u0438\u043d\u0435",
         "operationId": "get_student_info_student_info_get",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -160,18 +93,13 @@
                 }
               }
             }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
           }
-        }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/teacher/groups": {
@@ -180,26 +108,7 @@
           "Teacher"
         ],
         "summary": "Get Groups",
-        "description": "\u0422\u0443\u0442 \u043d\u0430\u0434\u043e \u043f\u0435\u0440\u0435\u0434\u0430\u0432\u0430\u0442\u044c \u0442\u043e\u043a\u0435\u043d \u0434\u043e\u0441\u0442\u0443\u043f\u0430, access_token \u0432\u044b\u0434\u0430\u044e\u0449\u0438\u0439\u0441\u044f \u043f\u0440\u0438 \u043b\u043e\u0433\u0438\u043d\u0435",
         "operationId": "get_groups_teacher_groups_get",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -210,18 +119,13 @@
                 }
               }
             }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
           }
-        }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/teacher/mark": {
@@ -230,35 +134,16 @@
           "Teacher"
         ],
         "summary": "Add Mark",
-        "description": "\u0422\u0443\u0442 \u043d\u0430\u0434\u043e \u043f\u0435\u0440\u0435\u0434\u0430\u0432\u0430\u0442\u044c \u0442\u043e\u043a\u0435\u043d \u0434\u043e\u0441\u0442\u0443\u043f\u0430, access_token \u0432\u044b\u0434\u0430\u044e\u0449\u0438\u0439\u0441\u044f \u043f\u0440\u0438 \u043b\u043e\u0433\u0438\u043d\u0435",
         "operationId": "add_mark_teacher_mark_post",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/EstForStudent"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -279,7 +164,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/teacher/student/{student_code}": {
@@ -288,8 +178,12 @@
           "Teacher"
         ],
         "summary": "Get Student",
-        "description": "\u0422\u0443\u0442 \u043d\u0430\u0434\u043e \u043f\u0435\u0440\u0435\u0434\u0430\u0432\u0430\u0442\u044c \u0442\u043e\u043a\u0435\u043d \u0434\u043e\u0441\u0442\u0443\u043f\u0430, access_token \u0432\u044b\u0434\u0430\u044e\u0449\u0438\u0439\u0441\u044f \u043f\u0440\u0438 \u043b\u043e\u0433\u0438\u043d\u0435",
         "operationId": "get_student_teacher_student__student_code__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
         "parameters": [
           {
             "name": "student_code",
@@ -298,22 +192,6 @@
             "schema": {
               "type": "string",
               "title": "Student Code"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -347,26 +225,7 @@
           "Teacher"
         ],
         "summary": "Teacher Lessons",
-        "description": "\u0422\u0443\u0442 \u043d\u0430\u0434\u043e \u043f\u0435\u0440\u0435\u0434\u0430\u0432\u0430\u0442\u044c \u0442\u043e\u043a\u0435\u043d \u0434\u043e\u0441\u0442\u0443\u043f\u0430, access_token \u0432\u044b\u0434\u0430\u044e\u0449\u0438\u0439\u0441\u044f \u043f\u0440\u0438 \u043b\u043e\u0433\u0438\u043d\u0435",
         "operationId": "teacher_lessons_teacher_lessons_get",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -377,18 +236,13 @@
                 }
               }
             }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
           }
-        }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/teacher/marking/students": {
@@ -397,35 +251,16 @@
           "Teacher"
         ],
         "summary": "Marking Students",
-        "description": "\u0422\u0443\u0442 \u043d\u0430\u0434\u043e \u043f\u0435\u0440\u0435\u0434\u0430\u0432\u0430\u0442\u044c \u0442\u043e\u043a\u0435\u043d \u0434\u043e\u0441\u0442\u0443\u043f\u0430, access_token \u0432\u044b\u0434\u0430\u044e\u0449\u0438\u0439\u0441\u044f \u043f\u0440\u0438 \u043b\u043e\u0433\u0438\u043d\u0435",
         "operationId": "marking_students_teacher_marking_students_post",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/StudentsOnLesson"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -446,7 +281,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/teacher/disciplines": {
@@ -455,26 +295,7 @@
           "Teacher"
         ],
         "summary": "Get Disciplines",
-        "description": "\u0422\u0443\u0442 \u043d\u0430\u0434\u043e \u043f\u0435\u0440\u0435\u0434\u0430\u0432\u0430\u0442\u044c \u0442\u043e\u043a\u0435\u043d \u0434\u043e\u0441\u0442\u0443\u043f\u0430, access_token \u0432\u044b\u0434\u0430\u044e\u0449\u0438\u0439\u0441\u044f \u043f\u0440\u0438 \u043b\u043e\u0433\u0438\u043d\u0435",
         "operationId": "get_disciplines_teacher_disciplines_get",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -485,18 +306,13 @@
                 }
               }
             }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
           }
-        }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/teacher/group/{group_code}": {
@@ -505,8 +321,12 @@
           "Teacher"
         ],
         "summary": "Get Group",
-        "description": "\u0422\u0443\u0442 \u043d\u0430\u0434\u043e \u043f\u0435\u0440\u0435\u0434\u0430\u0432\u0430\u0442\u044c \u0442\u043e\u043a\u0435\u043d \u0434\u043e\u0441\u0442\u0443\u043f\u0430, access_token \u0432\u044b\u0434\u0430\u044e\u0449\u0438\u0439\u0441\u044f \u043f\u0440\u0438 \u043b\u043e\u0433\u0438\u043d\u0435",
         "operationId": "get_group_teacher_group__group_code__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
         "parameters": [
           {
             "name": "group_code",
@@ -515,22 +335,6 @@
             "schema": {
               "type": "integer",
               "title": "Group Code"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -562,8 +366,12 @@
           "Neutral"
         ],
         "summary": "Get Lesson",
-        "description": "\u0422\u0443\u0442 \u043d\u0430\u0434\u043e \u043f\u0435\u0440\u0435\u0434\u0430\u0432\u0430\u0442\u044c \u0442\u043e\u043a\u0435\u043d \u0434\u043e\u0441\u0442\u0443\u043f\u0430, access_token \u0432\u044b\u0434\u0430\u044e\u0449\u0438\u0439\u0441\u044f \u043f\u0440\u0438 \u043b\u043e\u0433\u0438\u043d\u0435",
         "operationId": "get_lesson_neutral__lesson_id__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
         "parameters": [
           {
             "name": "lesson_id",
@@ -572,22 +380,6 @@
             "schema": {
               "type": "string",
               "title": "Lesson Id"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -621,35 +413,17 @@
           "Neutral"
         ],
         "summary": "Enter Exit",
-        "description": "\u0422\u0443\u0442 \u043d\u0430\u0434\u043e \u043f\u0435\u0440\u0435\u0434\u0430\u0432\u0430\u0442\u044c \u0442\u043e\u043a\u0435\u043d \u0434\u043e\u0441\u0442\u0443\u043f\u0430, enter_token \u0432\u044b\u0434\u0430\u044e\u0449\u0438\u0439\u0441\u044f admin,",
+        "description": "\u0422\u0443\u0442 \u043d\u0430\u0434\u043e \u043f\u0435\u0440\u0435\u0434\u0430\u0432\u0430\u0442\u044c \u0442\u043e\u043a\u0435\u043d \u0434\u043e\u0441\u0442\u0443\u043f\u0430, enter_token \u0432\u044b\u0434\u0430\u044e\u0449\u0438\u0439\u0441\u044f admin",
         "operationId": "enter_exit_neutral_enter_exit_post",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/AddEnterExit"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -670,7 +444,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/neutral/entrances": {
@@ -679,26 +458,7 @@
           "Neutral"
         ],
         "summary": "Get Entrances",
-        "description": "\u0422\u0443\u0442 \u043d\u0430\u0434\u043e \u043f\u0435\u0440\u0435\u0434\u0430\u0432\u0430\u0442\u044c \u0442\u043e\u043a\u0435\u043d \u0434\u043e\u0441\u0442\u0443\u043f\u0430, access_token \u0432\u044b\u0434\u0430\u044e\u0449\u0438\u0439\u0441\u044f \u043f\u0440\u0438 \u043b\u043e\u0433\u0438\u043d\u0435",
         "operationId": "get_entrances_neutral_entrances_get",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -709,18 +469,13 @@
                 }
               }
             }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
           }
-        }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     }
   },
@@ -1187,6 +942,13 @@
           "type"
         ],
         "title": "ValidationError"
+      }
+    },
+    "securitySchemes": {
+      "APIKeyHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
       }
     }
   }

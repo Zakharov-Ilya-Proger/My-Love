@@ -1,24 +1,24 @@
 from typing import Annotated
-from fastapi import APIRouter, Header, HTTPException
+from fastapi import APIRouter, Header, HTTPException, Depends
 from app.db.entryexit_db import db_post_person_entrances, db_get_person_entrances
 from app.db.lessons import get_lesson_from_db
 from app.models.entry_exit import AddEnterExit, EnExHistory
 from app.models.lesson import Lesson
 from app.tokens.decode import decode_token
-from app.tokens.descriptions import enter_token, access_token
+from app.tokens.descriptions import enter_token, access_token, api_key_header
 
 neutral = APIRouter()
 
 
-@neutral.get("/{lesson_id}", response_model=Lesson, description=access_token)
-async def get_lesson(lesson_id: str, authorization: Annotated[str | None, Header()] = None):
+@neutral.get("/{lesson_id}", response_model=Lesson)
+async def get_lesson(lesson_id: str, authorization: Annotated[str | None, Depends(api_key_header)] = None):
     decode_token(authorization)
     response = await get_lesson_from_db(lesson_id)
     return response
 
 
 @neutral.post("/enter/exit", description=enter_token)
-async def enter_exit(enter_exit_data: AddEnterExit, authorization: Annotated[str | None, Header()] = None):
+async def enter_exit(enter_exit_data: AddEnterExit, authorization: Annotated[str | None, Depends(api_key_header)] = None):
     token = decode_token(authorization)
     if token is None:
         raise HTTPException(status_code=403, detail="You no rights to enter or exit")
@@ -29,8 +29,8 @@ async def enter_exit(enter_exit_data: AddEnterExit, authorization: Annotated[str
     await funcs[token['role']]
 
 
-@neutral.get("/entrances", response_model=EnExHistory, description=access_token)
-async def get_entrances(authorization: Annotated[str | None, Header()] = None):
+@neutral.get("/entrances", response_model=EnExHistory)
+async def get_entrances(authorization: Annotated[str | None, Depends(api_key_header)] = None):
     token = decode_token(authorization)
     if token is None or token['role'] != 'student':
         raise HTTPException(status_code=403, detail='Not enough permissions')
