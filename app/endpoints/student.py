@@ -8,13 +8,14 @@ from app.models.group import StudentInfo
 from app.models.lesson import Lessons
 from app.models.student import Student
 from app.tokens.decode import decode_token
+from app.tokens.descriptions import access_token
 
 student = APIRouter()
 
 
-@student.get("/entrances", response_model=EnExHistory)
-async def get_entrances(access_token: Annotated[str | None, Header()] = None):
-    token = decode_token(access_token)
+@student.get("/entrances", response_model=EnExHistory, description=access_token)
+async def get_entrances(authorization: Annotated[str | None, Header()] = None):
+    token = decode_token(authorization)
     if token is None or token['role'] != 'student':
         raise HTTPException(status_code=403, detail='Not enough permissions')
     response = await db_get_person_entrances(
@@ -24,18 +25,18 @@ async def get_entrances(access_token: Annotated[str | None, Header()] = None):
     return response
 
 
-@student.get("/lessons", response_model=Lessons)
-async def get_lessons(access_token: Annotated[str | None, Header()] = None):
-    token = decode_token(access_token)
+@student.get("/lessons", response_model=Lessons, description=access_token)
+async def get_lessons(authorization: Annotated[str | None, Header()] = None):
+    token = decode_token(authorization)
     if token is None or token['role'] != 'student':
         raise HTTPException(status_code=403, detail='Not enough permissions')
     response = await get_lessons_from_db(token['group'])
     return response
 
 
-@student.get("/info", response_model=Student)
-async def get_student_info(access_token: Annotated[str | None, Header()] = None):
-    token = decode_token(access_token)
+@student.get("/info", response_model=Student, description=access_token)
+async def get_student_info(authorization: Annotated[str | None, Header()] = None):
+    token = decode_token(authorization)
     if token is None or token['role'] != 'student':
         raise HTTPException(status_code=403, detail='Not enough permissions')
     return await get_student_by_token_db(token['id'])
