@@ -5,3 +5,4 @@ psycopg2~=2.9.10
 PyJWT~=2.9.0
 python-dotenv~=1.0.1
 timestamp~=0.0.1
+starlette~=0.41.2

@@ -9,3 +9,61 @@ GET http://127.0.0.1:8000/hello/User
 Accept: application/json
 
 ###
+
+GET http://127.0.0.1:3001/neutral/entrances
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN0dWRlbnQiLCJjb2RlIjoiUzAwMSIsIm1haWwiOiJpdmFub3ZAZXhhbXBsZS5jb20iLCJncm91cCI6Ilx1MDQxM1x1MDQ0MFx1MDQ0M1x1MDQzZlx1MDQzZlx1MDQzMCAxIiwiZXhwIjoxNzMyMjIxMDU0fQ.rE6LDaxD35-kuszZS-R5DVhcrz1wAielflaMbFPV5pU
+
+###
+
+GET http://127.0.0.1:3001/neutral/lesson/1
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN0dWRlbnQiLCJjb2RlIjoiUzAwMSIsIm1haWwiOiJpdmFub3ZAZXhhbXBsZS5jb20iLCJncm91cCI6Ilx1MDQxM1x1MDQ0MFx1MDQ0M1x1MDQzZlx1MDQzZlx1MDQzMCAxIiwiZXhwIjoxNzMyMjIxMDU0fQ.rE6LDaxD35-kuszZS-R5DVhcrz1wAielflaMbFPV5pU
+
+###
+
+GET http://127.0.0.1:3001/teacher/disciplines
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InRlYWNoZXIiLCJjb2RlIjoiMjdcdTA0M2NcdTA0MzJcdTA0NDA0NSIsIm1haWwiOiIyMTQ2Mzc2QGdtYWlsLmNvbSIsImV4cCI6MTczMjIyMzcxNn0.uPCDZe8hOd9GxvJAyzz4m1nh6A-Z0SP1_QOyuY3lL-o
+
+###
+
+POST http://127.0.0.1:3001/teacher/mark
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InRlYWNoZXIiLCJjb2RlIjoiMjdcdTA0M2NcdTA0MzJcdTA0NDA0NSIsIm1haWwiOiIyMTQ2Mzc2QGdtYWlsLmNvbSIsImV4cCI6MTczMjIyMzcxNn0.uPCDZe8hOd9GxvJAyzz4m1nh6A-Z0SP1_QOyuY3lL-o
+
+{
+  "lesson_id": 1,
+  "student_id": 1,
+  "mark": 5
+}
+
+###
+
+GET http://127.0.0.1:3001/teacher/lessons
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InRlYWNoZXIiLCJjb2RlIjoiMjdcdTA0M2NcdTA0MzJcdTA0NDA0NSIsIm1haWwiOiIyMTQ2Mzc2QGdtYWlsLmNvbSIsImV4cCI6MTczMjIyMzcxNn0.uPCDZe8hOd9GxvJAyzz4m1nh6A-Z0SP1_QOyuY3lL-o
+
+
+###
+
+GET http://127.0.0.1:3001/student/lessons
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN0dWRlbnQiLCJjb2RlIjoiUzAwMSIsIm1haWwiOiJpdmFub3ZAZXhhbXBsZS5jb20iLCJncm91cCI6Ilx1MDQxM1x1MDQ0MFx1MDQ0M1x1MDQzZlx1MDQzZlx1MDQzMCAxIiwiZXhwIjoxNzMyMjI1MzczfQ.vjsGW5hfP4m2HfJzdAi0ZyrM4nvFfxHSSFOQbTgznrU
+
+###
+
+GET http://127.0.0.1:3001/teacher/groups
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InRlYWNoZXIiLCJjb2RlIjoiMjdcdTA0M2NcdTA0MzJcdTA0NDA0NSIsIm1haWwiOiIyMTQ2Mzc2QGdtYWlsLmNvbSIsImV4cCI6MTczMjIyMzcxNn0.uPCDZe8hOd9GxvJAyzz4m1nh6A-Z0SP1_QOyuY3lL-o
+
+###
+
+POST http://127.0.0.1:3001/teacher/marking/students
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InRlYWNoZXIiLCJjb2RlIjoiMjdcdTA0M2NcdTA0MzJcdTA0NDA0NSIsIm1haWwiOiIyMTQ2Mzc2QGdtYWlsLmNvbSIsImV4cCI6MTczMjIyMzcxNn0.uPCDZe8hOd9GxvJAyzz4m1nh6A-Z0SP1_QOyuY3lL-o
+
+{
+  "lesson_id": 1,
+  "students": {"1": true, "2": false}
+}

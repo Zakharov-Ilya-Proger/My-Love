@@ -9,12 +9,13 @@ async def db_get_person_entrances(person_id, id_column_name, table):
     conn = psycopg2.connect(**connector)
     cur = conn.cursor()
     try:
-        cur.execute('''
-        SELECT b.name, b.address, eeh.time, eeh.status 
-        FROM %s as eeh
-        JOIN public.branches b on eeh.branch_id = b.id 
-        WHERE %s = %s''',
-                    (table, id_column_name, person_id,))
+        query = f'''
+                SELECT b.name, b.address, eeh.time, eeh.status
+                FROM {table} as eeh
+                JOIN public.branches b on eeh.branch_id = b.id
+                WHERE {id_column_name} = %s
+                '''
+        cur.execute(query, (person_id,))
         data = cur.fetchall()
         if data is None:
             raise HTTPException(status_code=404, detail='No entry/exit history for this person')
@@ -22,11 +23,11 @@ async def db_get_person_entrances(person_id, id_column_name, table):
             branch_name=row[0],
             branch_address=row[1],
             time=row[2],
-            statuse=row[3]
+            status=row[3]
         ) for row in data])
         return response
     except (Exception, psycopg2.DatabaseError) as e:
-        raise HTTPException(status_code=500, detail=f'DB error {e}')
+        raise HTTPException(status_code=500, detail=f'DB error in entry exit {e}')
     finally:
         cur.close()
         conn.close()

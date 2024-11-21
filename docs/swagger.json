@@ -24,32 +24,6 @@
         }
       }
     },
-    "/student/entrances": {
-      "get": {
-        "tags": [
-          "Student"
-        ],
-        "summary": "Get Entrances",
-        "operationId": "get_entrances_student_entrances_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EnExHistory"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
     "/student/lessons": {
       "get": {
         "tags": [
@@ -360,13 +334,13 @@
         }
       }
     },
-    "/neutral/{lesson_id}": {
+    "/neutral/lesson/{lesson_id}": {
       "get": {
         "tags": [
           "Neutral"
         ],
         "summary": "Get Lesson",
-        "operationId": "get_lesson_neutral__lesson_id__get",
+        "operationId": "get_lesson_neutral_lesson__lesson_id__get",
         "security": [
           {
             "APIKeyHeader": []
@@ -378,7 +352,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string",
+              "type": "integer",
               "title": "Lesson Id"
             }
           }
@@ -684,6 +658,10 @@
             "type": "string",
             "format": "date-time",
             "title": "Deadline"
+          },
+          "type_of_lesson": {
+            "type": "string",
+            "title": "Type Of Lesson"
           }
         },
         "type": "object",
@@ -701,7 +679,8 @@
           "teacher_secondname",
           "teacher_lastname",
           "task",
-          "deadline"
+          "deadline",
+          "type_of_lesson"
         ],
         "title": "Lesson"
       },
@@ -753,6 +732,10 @@
             "type": "string",
             "format": "date-time",
             "title": "Deadline"
+          },
+          "type_of_lesson": {
+            "type": "string",
+            "title": "Type Of Lesson"
           }
         },
         "type": "object",
@@ -767,7 +750,8 @@
           "start_time",
           "end_time",
           "task",
-          "deadline"
+          "deadline",
+          "type_of_lesson"
         ],
         "title": "LessonTeacher"
       },
@@ -880,33 +864,18 @@
             "type": "integer",
             "title": "Lesson Id"
           },
-          "students_id": {
-            "items": {},
-            "type": "array",
-            "title": "Students Id"
-          },
-          "check_in_time": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Check In Time"
-          },
-          "check_out_time": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Check Out Time"
-          },
-          "status": {
-            "type": "string",
-            "title": "Status"
+          "students": {
+            "additionalProperties": {
+              "type": "boolean"
+            },
+            "type": "object",
+            "title": "Students"
           }
         },
         "type": "object",
         "required": [
           "lesson_id",
-          "students_id",
-          "check_in_time",
-          "check_out_time",
-          "status"
+          "students"
         ],
         "title": "StudentsOnLesson"
       },

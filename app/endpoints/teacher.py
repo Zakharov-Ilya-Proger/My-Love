@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from typing import Annotated
+from fastapi.security import APIKeyHeader
 from app.db.add_mark import add_mark_for_student
 from app.db.add_marking import add_students_marking
 from app.db.get_group import get_group_db
@@ -14,9 +15,10 @@ from app.models.student_est import EstForStudent
 from app.models.students_on_lesson import StudentsOnLesson
 from app.models.teacher_lessons import LessonsTeacher
 from app.tokens.decode import decode_token
-from app.tokens.descriptions import access_token, api_key_header
 
 teacher = APIRouter()
+
+api_key_header = APIKeyHeader(name="Authorization")
 
 
 @teacher.get("/groups", response_model=GroupInfo)
@@ -32,7 +34,11 @@ async def add_mark(mark: EstForStudent, authorization: Annotated[str | None, Dep
     token = decode_token(authorization)
     if token['role'] != 'teacher' or token is None:
         raise HTTPException(status_code=403, detail='You have no rights to set estimations')
-    await add_mark_for_student(mark)
+    resp, err = await add_mark_for_student(mark)
+    if resp is None:
+        raise HTTPException(status_code=404, detail='No such student or subject')
+    elif resp is False:
+        raise HTTPException(status_code=500, detail=f'DB error {err}')
 
 
 @teacher.get("/student/{student_code}", response_model=Student)
@@ -52,11 +58,18 @@ async def teacher_lessons(authorization: Annotated[str | None, Depends(api_key_h
 
 
 @teacher.post("/marking/students")
-async def marking_students(students: StudentsOnLesson, authorization: Annotated[str | None, Depends(api_key_header)] = None):
+async def marking_students(students: StudentsOnLesson,
+                           authorization: Annotated[str | None, Depends(api_key_header)] = None):
     token = decode_token(authorization)
     if token['role'] != 'teacher' or token is None:
         raise HTTPException(status_code=403, detail='You have no rights to set this information')
-    return await add_students_marking(students)
+    resp = await add_students_marking(students)
+    if resp is None:
+        raise HTTPException(status_code=404, detail=f'No such student or subject')
+    elif resp is True:
+        raise HTTPException(status_code=200, detail="Students added successful")
+    else:
+        raise HTTPException(status_code=500, detail=f'DB error {resp}')
 
 
 @teacher.get("/disciplines", response_model=Disciplines)

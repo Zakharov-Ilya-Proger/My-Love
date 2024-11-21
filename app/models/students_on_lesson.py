@@ -1,11 +1,8 @@
-from datetime import datetime
+from typing import Dict
 
 from pydantic import BaseModel
 
 
 class StudentsOnLesson(BaseModel):
     lesson_id: int
-    students_id: list
-    check_in_time: datetime
-    check_out_time: datetime
-    status: str
+    students: Dict[int, bool]

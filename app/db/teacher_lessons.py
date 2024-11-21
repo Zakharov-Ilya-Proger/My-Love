@@ -10,7 +10,7 @@ async def get_teacher_lessons(teacher_id):
     try:
         cur.execute('''
         SELECT l.id, s.name, group_code, a.name, a.capacity, b.name,
-        b.address, start_time, end_time, task, deadline 
+        b.address, start_time, end_time, task, deadline, l.type_of_lesson
         FROM lessons as l
         JOIN public.groups g on l.group_id = g.id
         JOIN public.subjects s on l.subject_id = s.id
@@ -36,7 +36,8 @@ async def get_teacher_lessons(teacher_id):
                     start_time=row[7],
                     end_time=row[8],
                     task=row[9],
-                    deadline=row[10]
+                    deadline=row[10],
+                    type_of_lesson=row[11]
                 ) for row in data
             ],
         )

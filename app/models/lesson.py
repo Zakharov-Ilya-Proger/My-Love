@@ -18,6 +18,7 @@ class Lesson(BaseModel):
     teacher_lastname: str
     task: str
     deadline: datetime
+    type_of_lesson: str
 
 
 class Lessons(BaseModel):

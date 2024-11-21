@@ -15,6 +15,7 @@ class LessonTeacher(BaseModel):
     end_time: datetime
     task: str
     deadline: datetime
+    type_of_lesson: str
 
 
 class LessonsTeacher(BaseModel):
