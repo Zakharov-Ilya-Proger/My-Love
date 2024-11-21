@@ -77,7 +77,7 @@ async def reset_password_teacher(request: Reset):
     cur = conn.cursor()
     try:
         cur.execute('''UPDATE teachers SET password = %s WHERE mail = %s AND reset_code = %s''',
-                    (request.password, request.mail, request.reset_code))
+                    (request.new_password, request.mail, request.reset_code))
 
         if cur.rowcount == 0:
             raise HTTPException(status_code=404, detail='User not found or code is incorrect')

@@ -10,17 +10,46 @@ Accept: application/json
 
 ###
 
-POST http://localhost:3002/admin/login
+POST http://localhost:3002/student/login
 Content-Type: application/json
 
 {
-  "mail": "example@example.com",
-  "password": "$2a$10$E6x4EK7YeGyRgmeZ1nBqg.ByZcu.DdFasPIFWLF/0AqC051XPdukC"
+  "mail": "ivanov@example.com",
+  "password": "password1"
 }
 
 ###
 
-GET http://localhost:3002/admin/refresh
-Accept: application/json
-refresh-token:
+POST http://localhost:3002/teacher/login
+Content-Type: application/json
 
+{
+  "mail": "2146376@gmail.com",
+  "password": "pivo_est_pivo"
+}
+
+###
+
+GET http://localhost:3002/teacher/refresh
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InRlYWNoZXIiLCJjb2RlIjoiMjdcdTA0M2NcdTA0MzJcdTA0NDA0NSIsIm5hbWUiOiJcdTA0MTRcdTA0MzhcdTA0M2RcdTA0MzhcdTA0NDEiLCJzZWNvbmRuYW1lIjoiXHUwNDE0XHUwNDNlXHUwNDQwXHUwNDNlXHUwNDQ1XHUwNDNlXHUwNDMyIiwibWFpbCI6IjIxNDYzNzZAZ21haWwuY29tIiwiZXhwIjoxNzMyMjg2MjcxfQ.t-lZLA-fvLzOEnXbQ0IJTxpNWB0fpOWFS8TNylAniyY
+
+###
+
+POST http://localhost:3002/teacher/reset
+Content-Type: application/json
+
+{
+  "mail": "2146376@gmail.com"
+}
+
+###
+
+POST http://localhost:3002/teacher/reset/confirm
+Content-Type: application/json
+
+{
+  "mail": "2146376@gmail.com",
+  "new_password": "pivo_est_pivo",
+  "reset_code": 9406
+}

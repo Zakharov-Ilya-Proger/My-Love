@@ -8,7 +8,7 @@ from app.__init__ import app
 openapi_schema = get_openapi(
     title=app.title,
     version=app.version,
-    openapi_version=app.openapi_version,
+    openapi_version='3.0.0',
     description=app.description,
     routes=app.routes,
 )

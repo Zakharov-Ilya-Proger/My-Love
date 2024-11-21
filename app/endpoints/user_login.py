@@ -47,7 +47,7 @@ async def refresh(authorization: Annotated[str | None, Header()] = None):
 async def reset(password: ResetInit):
     code = randint(1000, 9999)
     await set_time_code(password.mail, code)
-    send_email(to_email=password.mail, subject='Password Reset Code', body=f'Your verification code is: {code}')
+    send_email(to_email=password.mail, subject='Password Reset Code', body=f'Code: {code}')
     raise HTTPException(status_code=200, detail='Time code is ready')
 
 
