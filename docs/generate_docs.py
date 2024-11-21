@@ -7,7 +7,7 @@ from app.__init__ import app
 openapi_schema = get_openapi(
     title=app.title,
     version=app.version,
-    openapi_version="3.1.0",  # Update to OpenAPI version 3.1.0
+    openapi_version="3.0.0",  # Update to OpenAPI version 3.1.0
     description=app.description,
     routes=app.routes,
 )
