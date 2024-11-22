@@ -28,11 +28,11 @@ async def enter_exit(enter_exit_data: AddEnterExit, authorization: Annotated[str
     token = decode_token(authorization)
     if token is None:
         raise HTTPException(status_code=403, detail="You no rights to enter or exit")
-    funcs = {"admin": db_post_person_entrances("entryexithistory_admin", token, enter_exit_data),
-             "student": db_post_person_entrances("entryexithistory_student", token, enter_exit_data),
-             "teacher": db_post_person_entrances("entryexithistory_teacher", token, enter_exit_data),
-             "staff": db_post_person_entrances("entryexithistory_staff", token, enter_exit_data)}
-    return await funcs[token['role']]
+    funcs = {1: await db_post_person_entrances("entryexithistory_admin", token, "admin_id", enter_exit_data),
+             3: await db_post_person_entrances("entryexithistory_student", token, "student_id", enter_exit_data),
+             2: await db_post_person_entrances("entryexithistory_teacher", token, "teacher_id", enter_exit_data),
+             4: await db_post_person_entrances("entryexithistory_staff", token, "staff_id", enter_exit_data)}
+    return funcs[token['role_id']]
 
 
 @neutral.get("/entrances", response_model=EnExHistory)
@@ -40,11 +40,11 @@ async def get_entrances(authorization: Annotated[str | None, Depends(api_key_hea
     token = decode_token(authorization)
     if token is None:
         raise HTTPException(status_code=403, detail='Not enough permissions')
-    funcs = {"admin": db_get_person_entrances(token["id"],"admin_id","entryexithistory_admin"),
-             "student": db_get_person_entrances(int(token['id']), "student_id", "entryexithistory_student"),
-             "teacher": db_get_person_entrances(token['id'], "teacher_id", "entryexithistory_teacher"),
-             "staff": db_get_person_entrances(token['id'], "staff_id", "entryexithistory_staff")}
-    return await funcs[token['role']]
+    funcs = {1: await db_get_person_entrances(token["id"],"admin_id","entryexithistory_admin"),
+             3: await db_get_person_entrances(int(token['id']), "student_id", "entryexithistory_student"),
+             2: await db_get_person_entrances(token['id'], "teacher_id", "entryexithistory_teacher"),
+             4: await db_get_person_entrances(token['id'], "staff_id", "entryexithistory_staff")}
+    return funcs[token['role_id']]
 
 
 @neutral.get("/percentile", response_model=EnExHistory)
@@ -54,17 +54,16 @@ async def get_gpa(authorisation: Annotated[str | None, Depends(api_key_header)] 
         raise HTTPException(status_code=403, detail='Not enough permissions')
 
 
-@neutral.get("/enter/token", response_model={"enter_token": 'token'})
+@neutral.get("/enter/token")
 async def get_enter_token_end(authorisation: Annotated[str | None, Depends(api_key_header)] = None):
     token = decode_token(authorisation)
-    print(token)
     if token is None:
         raise HTTPException(status_code=403, detail='Not enough permissions')
-    funcs = {"admin": get_enter_token("admins", token["id"]),
-             "student": get_enter_token("students", token["id"]),
-             "teacher": get_enter_token("teachers", token["id"])
+    funcs = {"admin": await get_enter_token("admins", token["id"]),
+             "student": await get_enter_token("students", token["id"]),
+             "teacher": await get_enter_token("teachers", token["id"])
     }
-    err, resp = await funcs[token['role']]
+    err, resp = funcs[token['role']]
     if err is None:
         raise HTTPException(status_code=404, detail="No such person")
     if err is False:

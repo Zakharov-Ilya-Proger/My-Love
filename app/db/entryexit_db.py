@@ -33,13 +33,12 @@ async def db_get_person_entrances(person_id, id_column_name, table):
         conn.close()
 
 
-async def db_post_person_entrances(table, token, en_ex_data: AddEnterExit):
+async def db_post_person_entrances(table, token, column, en_ex_data: AddEnterExit):
     conn = psycopg2.connect(**connector)
     cur = conn.cursor()
     try:
-        id_column_name = token['role'] + '_id'
         query = f'''
-        INSERT INTO {table} ({id_column_name}, branch_id, time, status)
+        INSERT INTO {table} ({column}, branch_id, time, status)
         VALUES (%s, %s, %s, %s)
         '''
         cur.execute(query, (
@@ -53,5 +52,6 @@ async def db_post_person_entrances(table, token, en_ex_data: AddEnterExit):
     except (Exception, psycopg2.DatabaseError) as e:
         return HTTPException(status_code=500, detail=f'DB error {e}')
     finally:
+        conn.commit()
         cur.close()
         conn.close()
