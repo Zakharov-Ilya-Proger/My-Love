@@ -76,6 +76,32 @@
         ]
       }
     },
+    "/student/gpa": {
+      "get": {
+        "tags": [
+          "Student"
+        ],
+        "summary": "Get Student Percentile",
+        "operationId": "get_student_percentile_student_gpa_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnExHistory"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/teacher/groups": {
       "get": {
         "tags": [
@@ -451,6 +477,56 @@
           }
         ]
       }
+    },
+    "/neutral/percentile": {
+      "get": {
+        "tags": [
+          "Neutral"
+        ],
+        "summary": "Get Gpa",
+        "operationId": "get_gpa_neutral_percentile_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnExHistory"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/neutral/enter/token": {
+      "get": {
+        "tags": [
+          "Neutral"
+        ],
+        "summary": "Get Enter Token End",
+        "operationId": "get_enter_token_end_neutral_enter_token_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -467,7 +543,7 @@
             "title": "Status"
           },
           "branch_id": {
-            "type": "string",
+            "type": "integer",
             "title": "Branch Id"
           }
         },

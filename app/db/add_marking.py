@@ -18,10 +18,10 @@ async def add_students_marking(students: StudentsOnLesson):
             conn.commit()
         print(cur.rowcount)
         if cur.rowcount == 0:
-            return None
-        return True
+            return HTTPException(status_code=404, detail='No student was added')
+        return HTTPException(status_code=200, detail='Successfully added students.')
     except (Exception, psycopg2.DatabaseError) as e:
-        return e
+        return HTTPException(status_code=500, detail=f"DB error {e}")
     finally:
         cur.close()
         conn.close()

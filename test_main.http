@@ -24,7 +24,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN0dWRl
 
 GET http://127.0.0.1:3001/teacher/disciplines
 Accept: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InRlYWNoZXIiLCJjb2RlIjoiMjdcdTA0M2NcdTA0MzJcdTA0NDA0NSIsIm1haWwiOiIyMTQ2Mzc2QGdtYWlsLmNvbSIsImV4cCI6MTczMjIyMzcxNn0.uPCDZe8hOd9GxvJAyzz4m1nh6A-Z0SP1_QOyuY3lL-o
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InRlYWNoZXIiLCJjb2RlIjoiMjdcdTA0M2NcdTA0MzJcdTA0NDA0NSIsIm1haWwiOiIyMTQ2Mzc2QGdtYWlsLmNvbSIsImV4cCI6MTczMjI4ODE3Mn0._3sbANU5Vxm4TWTCd7V7Q6XtGwxpbPQxBKuIUNCRKnc
 
 ###
 
@@ -67,3 +67,27 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InRlYWNo
   "lesson_id": 1,
   "students": {"1": true, "2": false}
 }
+
+###
+
+POST http://127.0.0.1:3001/neutral/enter/exit
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN0dWRlbnQiLCJjb2RlIjoiUzAwMSIsIm1haWwiOiJpdmFub3ZAZXhhbXBsZS5jb20iLCJncm91cCI6Ilx1MDQxM1x1MDQ0MFx1MDQ0M1x1MDQzZlx1MDQzZlx1MDQzMCAxIiwiZXhwIjoxNzMyMjg2NzA1fQ.zHIqEn1elIgIErdbEPVAZCVJ7oJ7javymS3f-KUAD6E
+
+{
+  "branch_id": 2,
+  "status": "выход",
+  "time": "2024-11-21 20:29:50.000000"
+}
+
+###
+
+GET http://127.0.0.1:3001/neutral/entrances
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN0dWRlbnQiLCJjb2RlIjoiUzAwMSIsIm1haWwiOiJpdmFub3ZAZXhhbXBsZS5jb20iLCJncm91cCI6Ilx1MDQxM1x1MDQ0MFx1MDQ0M1x1MDQzZlx1MDQzZlx1MDQzMCAxIiwiZXhwIjoxNzMyMjg2NzA1fQ.zHIqEn1elIgIErdbEPVAZCVJ7oJ7javymS3f-KUAD6E
+
+###
+
+GET http://127.0.0.1:3001/neutral/enter/token
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InRlYWNoZXIiLCJjb2RlIjoiMjdcdTA0M2NcdTA0MzJcdTA0NDA0NSIsIm1haWwiOiIyMTQ2Mzc2QGdtYWlsLmNvbSIsImV4cCI6MTczMjMyMDkwMH0.ZIaQIuyUL-vf4nLzx9zrbq4Cp9YcHpGhe2dSxGsSkdU

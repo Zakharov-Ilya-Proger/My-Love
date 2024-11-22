@@ -63,13 +63,7 @@ async def marking_students(students: StudentsOnLesson,
     token = decode_token(authorization)
     if token['role'] != 'teacher' or token is None:
         raise HTTPException(status_code=403, detail='You have no rights to set this information')
-    resp = await add_students_marking(students)
-    if resp is None:
-        raise HTTPException(status_code=404, detail=f'No such student or subject')
-    elif resp is True:
-        raise HTTPException(status_code=200, detail="Students added successful")
-    else:
-        raise HTTPException(status_code=500, detail=f'DB error {resp}')
+    raise await add_students_marking(students)
 
 
 @teacher.get("/disciplines", response_model=Disciplines)
