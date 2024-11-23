@@ -5,8 +5,8 @@ POST http://localhost:3002/api/auth/student/login
 Content-Type: application/json
 
 {
-  "mail": "ivanov@example.com",
-  "password": "password1"
+  "mail": "petrov@example.com",
+  "password": "password2"
 }
 
 ###
