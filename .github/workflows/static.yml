@@ -46,31 +46,14 @@ jobs:
 
             # Модификация swagger.json, если существует
             if [ -f "output/${BRANCH_NAME}/swagger.json" ]; then
-              # Удаление swagger: 2.0, если оно существует
-              if grep -q '"swagger": "2.0"' output/${BRANCH_NAME}/swagger.json; then
-                echo "Removing 'swagger: 2.0' from swagger.json for $BRANCH_NAME."
-                sed -i '/"swagger": "2.0"/d' output/${BRANCH_NAME}/swagger.json
-              fi
-
-              # Проверка и замена версии openapi
-              if [ "$branch" = "AdminMicroservice" ]; then
-                # Оставляем версию 3.0.0 для AdminMicroservice
-                if grep -q '"openapi":' output/${BRANCH_NAME}/swagger.json; then
-                  echo "Replacing 'openapi' version with '3.0.0' for $BRANCH_NAME."
-                  sed -i 's/"openapi": *"[^"]*"/"openapi": "3.0.0"/' output/${BRANCH_NAME}/swagger.json
-                else
-                  echo "Adding 'openapi: 3.0.0' to swagger.json for $BRANCH_NAME."
-                  sed -i '1s|{|{"openapi": "3.0.0",|' output/${BRANCH_NAME}/swagger.json
-                fi
+              if grep -q '"swagger":' output/${BRANCH_NAME}/swagger.json; then
+                echo "swagger.json contains 'swagger' key for $BRANCH_NAME. No modification needed."
+              elif grep -q '"openapi":' output/${BRANCH_NAME}/swagger.json; then
+                echo "Replacing 'openapi' version with '3.0.0' for $BRANCH_NAME."
+                sed -i 's/"openapi": *"[^"]*"/"openapi": "3.0.0"/' output/${BRANCH_NAME}/swagger.json
               else
-                # Используем версию 3.1.0 для остальных веток
-                if grep -q '"openapi":' output/${BRANCH_NAME}/swagger.json; then
-                  echo "Replacing 'openapi' version with '3.1.0' for $BRANCH_NAME."
-                  sed -i 's/"openapi": *"[^"]*"/"openapi": "3.1.0"/' output/${BRANCH_NAME}/swagger.json
-                else
-                  echo "Adding 'openapi: 3.1.0' to swagger.json for $BRANCH_NAME."
-                  sed -i '1s|{|{"openapi": "3.1.0",|' output/${BRANCH_NAME}/swagger.json
-                fi
+                echo "Adding 'openapi: 3.0.0' to swagger.json for $BRANCH_NAME."
+                sed -i '1s|{|{"openapi": "3.0.0",|' output/${BRANCH_NAME}/swagger.json
               fi
             else
               echo "No swagger.json found for $BRANCH_NAME."
