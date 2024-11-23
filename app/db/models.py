@@ -5,9 +5,17 @@ class Login(BaseModel):
     mail: str = None
     password: str
 
+class Data(BaseModel):
+    id: int
+    name: str
+    secondname: str
+    lastname: str
+    role: str
+
+
 
 class LoggedIn(BaseModel):
-    data: dict
+    data: Data
     access_token: str
     refresh_token: str
 

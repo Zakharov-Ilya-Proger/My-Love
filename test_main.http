@@ -1,7 +1,7 @@
 
 ### Students
 
-POST http://localhost:3002/student/login
+POST http://localhost:3002/api/auth/student/login
 Content-Type: application/json
 
 {
@@ -37,7 +37,7 @@ Content-Type: application/json
 
 ### Teachers
 
-POST http://localhost:3002/teacher/login
+POST http://localhost:3002/api/auth/teacher/login
 Content-Type: application/json
 
 {
@@ -73,7 +73,7 @@ Content-Type: application/json
 
 ### Admin
 
-POST http://localhost:3002/admin/login
+POST http://localhost:3002/api/auth/admin/login
 Content-Type: application/json
 
 {

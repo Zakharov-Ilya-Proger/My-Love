@@ -11,14 +11,14 @@ async def check_user(user: Login):
     cur = conn.cursor()
     try:
         if user.phone is None:
-            cur.execute('''SELECT users.id, users.name, secondname, roles.name, code, mail, groups.group_code 
+            cur.execute('''SELECT users.id, users.name, secondname, roles.name, code, mail, groups.group_code, lastname
                                     FROM students as users
                                     JOIN roles ON roles.id = users.role_id
                                     JOIN groups ON groups.id = users.group_id
                                     WHERE mail = %s AND password = %s''',
                         (user.mail, user.password))
         else:
-            cur.execute('''SELECT users.id, users.name, secondname, roles.name, code, mail, groups.group_code
+            cur.execute('''SELECT users.id, users.name, secondname, roles.name, code, mail, groups.group_code, lastname
                                     FROM students as users
                                     JOIN roles ON roles.id = users.role_id
                                     JOIN groups ON groups.id = users.group_id
@@ -32,6 +32,7 @@ async def check_user(user: Login):
                 'id': data[0],
                 'name': data[1],
                 'secondname': data[2],
+                'lastname': data[7],
                 'role': data[3],
             },
                 access_token=create_access_token({
