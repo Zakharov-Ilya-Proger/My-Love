@@ -18,9 +18,6 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 15)
     REFRESH_TOKEN_EXPIRED_HOURS: int = os.getenv("REFRESH_TOKEN_EXPIRE_HOURS", 1)
 
-    GMAIL_PASSWORD: str = os.getenv("GMAIL_PASSWORD")
-    GMAIL_ADDRESS: str = os.getenv("GMAIL_ADDRESS")
-
     class Config:
         env_file = ".env"
 
