@@ -88,9 +88,7 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EnExHistory"
-                }
+                "schema": {}
               }
             }
           }
@@ -490,9 +488,7 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EnExHistory"
-                }
+                "schema": {}
               }
             }
           }

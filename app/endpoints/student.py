@@ -30,7 +30,7 @@ async def get_student_info(authorization: Annotated[str | None, Depends(api_key_
     return await get_student_by_token_db(token['id'])
 
 
-@student.get("/gpa", response_model=EnExHistory)
+@student.get("/gpa")
 async def get_student_percentile(authorization: Annotated[str | None, Depends(api_key_header)] = None):
     token = decode_token(authorization)
     if token is None or token['role'] != 'student':

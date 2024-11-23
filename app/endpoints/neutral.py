@@ -1,9 +1,11 @@
+from http.client import responses
 from typing import Annotated
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.security import APIKeyHeader
 
 from app.db.enter_token import get_enter_token
 from app.db.entryexit_db import db_post_person_entrances, db_get_person_entrances
+from app.db.get_data_for_per_and_gpa import count_percentile_from_db
 from app.db.lessons import get_lesson_from_lesson_id_db
 from app.models.entry_exit import AddEnterExit, EnExHistory
 from app.models.lesson import Lesson
@@ -47,11 +49,18 @@ async def get_entrances(authorization: Annotated[str | None, Depends(api_key_hea
     return funcs[token['role_id']]
 
 
-@neutral.get("/percentile", response_model=EnExHistory)
+@neutral.get("/percentile")
 async def get_gpa(authorisation: Annotated[str | None, Depends(api_key_header)] = None):
     token = decode_token(authorisation)
-    if token is None or token['role'] in ['student', 'teacher']:
+    if token is None or token['role'] not in ['student', 'teacher', 'admin']:
         raise HTTPException(status_code=403, detail='Not enough permissions')
+    response, err = await count_percentile_from_db()
+    if err is False:
+        raise HTTPException(status_code=500, detail=f"DB error {response}")
+    elif err is None:
+        raise HTTPException(status_code=404, detail=f"Puk Puk no percentile")
+    else:
+        return {"percentile":response}
 
 
 @neutral.get("/enter/token")
