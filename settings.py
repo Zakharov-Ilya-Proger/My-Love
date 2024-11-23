@@ -20,6 +20,8 @@ class Settings(BaseSettings):
 
     GMAIL_PASSWORD: str = os.getenv("GMAIL_PASSWORD")
     GMAIL_ADDRESS: str = os.getenv("GMAIL_ADDRESS")
+    SMTP_SERVER: str = os.getenv("SMTP_SERVER")
+    SMTP_PORT: int = os.getenv("SMTP_PORT")
 
     class Config:
         env_file = ".env"

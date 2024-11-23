@@ -1,12 +1,11 @@
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from fastapi import HTTPException
 from settings import settings
 
 def send_email(to_email, subject, body):
-    smtp_server = 'smtp.mail.ru'
-    smtp_port = 465
+    smtp_server = settings.SMTP_SERVER
+    smtp_port = settings.SMTP_PORT
     email_address = settings.GMAIL_ADDRESS
     email_password = settings.GMAIL_PASSWORD
 
