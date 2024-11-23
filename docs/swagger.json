@@ -5,13 +5,13 @@
     "version": "0.1.0"
   },
   "paths": {
-    "/": {
+    "/api/users/": {
       "get": {
         "tags": [
           "Main"
         ],
         "summary": "Index",
-        "operationId": "index__get",
+        "operationId": "index_api_users__get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -24,13 +24,13 @@
         }
       }
     },
-    "/student/lessons": {
+    "/api/users/student/lessons": {
       "get": {
         "tags": [
           "Student"
         ],
         "summary": "Get Lessons",
-        "operationId": "get_lessons_student_lessons_get",
+        "operationId": "get_lessons_api_users_student_lessons_get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -50,13 +50,13 @@
         ]
       }
     },
-    "/student/info": {
+    "/api/users/student/info": {
       "get": {
         "tags": [
           "Student"
         ],
         "summary": "Get Student Info",
-        "operationId": "get_student_info_student_info_get",
+        "operationId": "get_student_info_api_users_student_info_get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -76,13 +76,13 @@
         ]
       }
     },
-    "/student/gpa": {
+    "/api/users/student/gpa": {
       "get": {
         "tags": [
           "Student"
         ],
         "summary": "Get Student Percentile",
-        "operationId": "get_student_percentile_student_gpa_get",
+        "operationId": "get_student_percentile_api_users_student_gpa_get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -100,13 +100,13 @@
         ]
       }
     },
-    "/teacher/groups": {
+    "/api/users/teacher/groups": {
       "get": {
         "tags": [
           "Teacher"
         ],
         "summary": "Get Groups",
-        "operationId": "get_groups_teacher_groups_get",
+        "operationId": "get_groups_api_users_teacher_groups_get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -126,13 +126,13 @@
         ]
       }
     },
-    "/teacher/mark": {
+    "/api/users/teacher/mark": {
       "post": {
         "tags": [
           "Teacher"
         ],
         "summary": "Add Mark",
-        "operationId": "add_mark_teacher_mark_post",
+        "operationId": "add_mark_api_users_teacher_mark_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -170,13 +170,13 @@
         ]
       }
     },
-    "/teacher/student/{student_code}": {
+    "/api/users/teacher/student/{student_code}": {
       "get": {
         "tags": [
           "Teacher"
         ],
         "summary": "Get Student",
-        "operationId": "get_student_teacher_student__student_code__get",
+        "operationId": "get_student_api_users_teacher_student__student_code__get",
         "security": [
           {
             "APIKeyHeader": []
@@ -217,13 +217,13 @@
         }
       }
     },
-    "/teacher/lessons": {
+    "/api/users/teacher/lessons": {
       "get": {
         "tags": [
           "Teacher"
         ],
         "summary": "Teacher Lessons",
-        "operationId": "teacher_lessons_teacher_lessons_get",
+        "operationId": "teacher_lessons_api_users_teacher_lessons_get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -243,13 +243,13 @@
         ]
       }
     },
-    "/teacher/marking/students": {
+    "/api/users/teacher/marking/students": {
       "post": {
         "tags": [
           "Teacher"
         ],
         "summary": "Marking Students",
-        "operationId": "marking_students_teacher_marking_students_post",
+        "operationId": "marking_students_api_users_teacher_marking_students_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -287,13 +287,13 @@
         ]
       }
     },
-    "/teacher/disciplines": {
+    "/api/users/teacher/disciplines": {
       "get": {
         "tags": [
           "Teacher"
         ],
         "summary": "Get Disciplines",
-        "operationId": "get_disciplines_teacher_disciplines_get",
+        "operationId": "get_disciplines_api_users_teacher_disciplines_get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -313,13 +313,13 @@
         ]
       }
     },
-    "/teacher/group/{group_code}": {
+    "/api/users/teacher/group/{group_code}": {
       "get": {
         "tags": [
           "Teacher"
         ],
         "summary": "Get Group",
-        "operationId": "get_group_teacher_group__group_code__get",
+        "operationId": "get_group_api_users_teacher_group__group_code__get",
         "security": [
           {
             "APIKeyHeader": []
@@ -358,13 +358,13 @@
         }
       }
     },
-    "/neutral/lesson/{lesson_id}": {
+    "/api/users/neutral/lesson/{lesson_id}": {
       "get": {
         "tags": [
           "Neutral"
         ],
         "summary": "Get Lesson",
-        "operationId": "get_lesson_neutral_lesson__lesson_id__get",
+        "operationId": "get_lesson_api_users_neutral_lesson__lesson_id__get",
         "security": [
           {
             "APIKeyHeader": []
@@ -405,14 +405,14 @@
         }
       }
     },
-    "/neutral/enter/exit": {
+    "/api/users/neutral/enter/exit": {
       "post": {
         "tags": [
           "Neutral"
         ],
         "summary": "Enter Exit",
         "description": "\u0422\u0443\u0442 \u043d\u0430\u0434\u043e \u043f\u0435\u0440\u0435\u0434\u0430\u0432\u0430\u0442\u044c \u0442\u043e\u043a\u0435\u043d \u0434\u043e\u0441\u0442\u0443\u043f\u0430, enter_token \u0432\u044b\u0434\u0430\u044e\u0449\u0438\u0439\u0441\u044f admin",
-        "operationId": "enter_exit_neutral_enter_exit_post",
+        "operationId": "enter_exit_api_users_neutral_enter_exit_post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -450,13 +450,13 @@
         ]
       }
     },
-    "/neutral/entrances": {
+    "/api/users/neutral/entrances": {
       "get": {
         "tags": [
           "Neutral"
         ],
         "summary": "Get Entrances",
-        "operationId": "get_entrances_neutral_entrances_get",
+        "operationId": "get_entrances_api_users_neutral_entrances_get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -476,13 +476,13 @@
         ]
       }
     },
-    "/neutral/percentile": {
+    "/api/users/neutral/percentile": {
       "get": {
         "tags": [
           "Neutral"
         ],
         "summary": "Get Gpa",
-        "operationId": "get_gpa_neutral_percentile_get",
+        "operationId": "get_gpa_api_users_neutral_percentile_get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -500,13 +500,13 @@
         ]
       }
     },
-    "/neutral/enter/token": {
+    "/api/users/neutral/enter/token": {
       "get": {
         "tags": [
           "Neutral"
         ],
         "summary": "Get Enter Token End",
-        "operationId": "get_enter_token_end_neutral_enter_token_get",
+        "operationId": "get_enter_token_end_api_users_neutral_enter_token_get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -723,12 +723,26 @@
             "title": "Teacher Lastname"
           },
           "task": {
-            "type": "string",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Task"
           },
           "deadline": {
-            "type": "string",
-            "format": "date-time",
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Deadline"
           },
           "type_of_lesson": {

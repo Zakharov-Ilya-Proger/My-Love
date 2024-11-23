@@ -18,9 +18,8 @@ async def get_lessons_from_db(group):
             JOIN public.branches b on b.id = a.branch_id
             JOIN public.groups g on g.id = l.group_id
             JOIN public.teachers u on u.id = l.teacher_id
-            JOIN public.tasks t on l.id = t.lesson_id
-        WHERE group_code = %s
-        AND (start_time::date >= CURRENT_DATE)
+            LEFT JOIN public.tasks t on l.id = t.lesson_id
+        WHERE g.group_code = %s
         ''', (group,))
         data = cur.fetchall()
         if data is None:

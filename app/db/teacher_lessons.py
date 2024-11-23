@@ -18,7 +18,6 @@ async def get_teacher_lessons(teacher_id):
         JOIN public.branches as b on a.branch_id = b.id
         JOIN public.tasks t on l.id = t.lesson_id
         WHERE teacher_id = %s
-        AND (start_time::date >= CURRENT_DATE)
         ''', (teacher_id,))
         data = cur.fetchall()
         if data is None:
