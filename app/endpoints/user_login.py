@@ -51,7 +51,7 @@ async def reset(password: ResetInit):
     raise HTTPException(status_code=200, detail='Time code is ready')
 
 
-@user_router.post('/reset/confirm')
+@user_router.put('/reset/confirm')
 async def reset_confirm(request: Reset):
     await reset_password(request)
     raise HTTPException(status_code=200, detail='A new password has been set')

@@ -50,7 +50,7 @@ async def reset(password: ResetInit):
     raise HTTPException(status_code=200, detail='Time code is ready')
 
 
-@admin_router.post('/reset/confirm')
+@admin_router.put('/reset/confirm')
 async def reset_confirm(request: Reset):
     await reset_password_admin(request)
     raise HTTPException(status_code=200, detail='A new password has been set')

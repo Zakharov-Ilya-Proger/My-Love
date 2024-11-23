@@ -1,14 +1,5 @@
-# Test your FastAPI endpoints
 
-GET http://127.0.0.1:8000/
-Accept: application/json
-
-###
-
-GET http://127.0.0.1:8000/hello/User
-Accept: application/json
-
-###
+### Students
 
 POST http://localhost:3002/student/login
 Content-Type: application/json
@@ -19,6 +10,32 @@ Content-Type: application/json
 }
 
 ###
+
+GET http://localhost:3002/student/refresh
+Accept: application/json
+Authorization:
+
+###
+
+POST http://localhost:3002/student/reset
+Content-Type: application/json
+
+{
+  "mail": ""
+}
+
+###
+
+PUT http://localhost:3002/student/reset/confirm
+Content-Type: application/json
+
+{
+  "mail": "",
+  "new_password": "",
+  "reset_code":
+}
+
+### Teachers
 
 POST http://localhost:3002/teacher/login
 Content-Type: application/json
@@ -45,11 +62,31 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:3002/teacher/reset/confirm
+PUT http://localhost:3002/teacher/reset/confirm
 Content-Type: application/json
 
 {
-  "mail": "2146376@gmail.com",
-  "new_password": "pivo_est_pivo",
-  "reset_code": 9406
+  "mail": "",
+  "new_password": "",
+  "reset_code":
 }
+
+### Admin
+
+POST http://localhost:3002/admin/login
+Content-Type: application/json
+
+{
+  "mail": "admin@example.com",
+  "password": "qwerty12345"
+}
+
+###
+
+GET http://localhost:3002/admin/refresh
+Accept: application/json
+Authorization:
+
+###
+
+POST
