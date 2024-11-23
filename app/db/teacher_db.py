@@ -32,7 +32,9 @@ async def check_teacher(user: Login):
                 'id': data[0],
                 'name': data[1],
                 'secondname': data[2],
-                'lastname': data[6]},
+                'lastname': data[6],
+                'role': data[3],
+            },
                 access_token=create_access_token({
                     'id': data[0],
                     'role': data[3],

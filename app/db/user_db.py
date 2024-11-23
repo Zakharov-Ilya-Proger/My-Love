@@ -31,7 +31,9 @@ async def check_user(user: Login):
             return LoggedIn(data={
                 'id': data[0],
                 'name': data[1],
-                'secondname': data[2]},
+                'secondname': data[2],
+                'role': data[3],
+            },
                 access_token=create_access_token({
                     'id': data[0],
                     'role': data[3],
