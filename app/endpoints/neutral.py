@@ -61,7 +61,7 @@ async def get_gpa(authorisation: Annotated[str | None, Depends(api_key_header)] 
         raise HTTPException(status_code=403, detail='Not enough permissions')
     response = await count_percentile_from_db()
     if isinstance(response, Percentile):
-        return {"percentile":response}
+        return response
     raise response
 
 

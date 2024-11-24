@@ -2,7 +2,7 @@ import psycopg2
 from fastapi import HTTPException
 
 from app.db.config import connector
-from app.models.Statist import GPA
+from app.models.Statist import GPA, Percentile
 
 
 async def get_data_for_gpa(student_id):
@@ -51,7 +51,7 @@ async def count_percentile_from_db():
         data = cur.fetchone()
         if data is None:
             return HTTPException(status_code=404, detail='No data found')
-        return f"{round(data[0], 3)}%"
+        return Percentile(percentile=data[0])
     except (Exception, psycopg2.DatabaseError) as e:
         return HTTPException(status_code=500, detail=f"DB error: {e}")
     finally:
