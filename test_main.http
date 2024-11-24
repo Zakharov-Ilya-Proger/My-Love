@@ -5,7 +5,7 @@ POST http://localhost:3002/api/auth/student/login
 Content-Type: application/json
 
 {
-  "mail": "petrov@example.com",
+  "mail": "ivanov@ample.com",
   "password": "password2"
 }
 
@@ -41,8 +41,8 @@ POST http://localhost:3002/api/auth/teacher/login
 Content-Type: application/json
 
 {
-  "mail": "2146376@gmail.com",
-  "password": "pivo_est_pivo"
+  "mail": "2146376@ail.com",
+  "password": "password1"
 }
 
 ###
@@ -77,15 +77,15 @@ POST http://localhost:3002/api/auth/admin/login
 Content-Type: application/json
 
 {
-  "mail": "admin@example.com",
-  "password": "qwerty12345"
+  "mail": "admiexample.com",
+  "password": "password1"
 }
 
 ###
 
-GET http://localhost:3002/admin/refresh
+GET http://localhost:3002/api/auth/admin/refresh
 Accept: application/json
-Authorization:
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiY29kZSI6IkEwMDAxIiwibmFtZSI6Ilx1MDQxMFx1MDQzNFx1MDQzY1x1MDQzOFx1MDQzZCIsInNlY29uZG5hbWUiOiJcdTA0MTBcdTA0MzRcdTA0M2NcdTA0MzhcdTA0M2RcdTA0M2VcdTA0MzIiLCJtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJsZXZlbCI6ImFsbCIsImV4cCI6MTczMjU0MjQ4M30.jNFd6oC2x_7dRh0cxIprxtZNw01kx_7TOkSixzaPCG8
 
 ###
 

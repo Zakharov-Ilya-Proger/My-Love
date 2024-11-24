@@ -37,3 +37,16 @@ class Reset(BaseModel):
     mail: str
     new_password: str
     reset_code: int
+
+class DataAdmin(BaseModel):
+    id: int
+    name: str
+    secondname: str
+    lastname: str
+    role: str
+    level: str
+
+class LoggedInAdmin(BaseModel):
+    data: DataAdmin
+    access_token: str
+    refresh_token: str

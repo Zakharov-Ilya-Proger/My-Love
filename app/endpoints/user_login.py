@@ -1,25 +1,21 @@
 from datetime import timedelta
 from random import randint
 from typing import Annotated
-from fastapi import APIRouter, HTTPException, Header
+from fastapi import APIRouter, Header
 from app.db.models import LoggedIn, Login, RefreshResponse, ResetInit, Reset
 from app.db.user_db import check_user, set_time_code, reset_password
 from app.send_code import send_email
 from app.tokens import decode_token, create_access_token
-from settings import settings
 
 user_router = APIRouter()
 
 
 @user_router.post('/login', response_model=LoggedIn)
 async def login(request: Login):
-    response, status = await check_user(request)
-    if status is None:
-        raise HTTPException(status_code=404, detail='No such user')
-    elif status is False:
-        raise HTTPException(status_code=500, detail=f'DB error {response}')
-    else:
+    response = await check_user(request)
+    if isinstance(response, LoggedIn):
         return response
+    raise response
 
 
 @user_router.get('/refresh', response_model=RefreshResponse, description='Refresh token')
@@ -46,12 +42,12 @@ async def refresh(authorization: Annotated[str | None, Header()] = None):
 @user_router.post('/reset')
 async def reset(password: ResetInit):
     code = randint(1000, 9999)
-    await set_time_code(password.mail, code)
+    response = await set_time_code(password.mail, code)
     send_email(to_email=password.mail, subject='Password Reset Code', body=f'Code: {code}')
-    raise HTTPException(status_code=200, detail='Time code is ready')
+    raise response
 
 
 @user_router.put('/reset/confirm')
 async def reset_confirm(request: Reset):
-    await reset_password(request)
-    raise HTTPException(status_code=200, detail='A new password has been set')
+    response = await reset_password(request)
+    raise response
