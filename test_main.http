@@ -106,9 +106,9 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InRlYWNo
 
 ###
 
-GET http://127.0.0.1:3001/student/gpa
+GET http://127.0.0.1:3001/api/users/student/gpa
 Accept: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN0dWRlbnQiLCJjb2RlIjoiUzAwMSIsIm1haWwiOiJpdmFub3ZAZXhhbXBsZS5jb20iLCJncm91cCI6Ilx1MDQxM1x1MDQ0MFx1MDQ0M1x1MDQzZlx1MDQzZlx1MDQzMCAxIiwiZXhwIjoxNzMyMzU1OTk0fQ.EgXSr3mCs2gGXmsoL8Ehcde2wJX63CKUPGzcZZI-CC4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN0dWRlbnQiLCJjb2RlIjoiUzAwMSIsIm1haWwiOiJpdmFub3ZAZXhhbXBsZS5jb20iLCJncm91cCI6Ilx1MDQxM1x1MDQ0MFx1MDQ0M1x1MDQzZlx1MDQzZlx1MDQzMCAxIiwiZXhwIjoxNzMyNDg1NDEyfQ.KJjSqWvnVCf-uVsdhzY_CQmVDnK4EoKeaoBxONDwLYE
 
 ###
 

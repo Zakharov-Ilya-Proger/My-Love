@@ -45,7 +45,7 @@ async def get_student_percentile(authorization: Annotated[str | None, Depends(ap
         raise HTTPException(status_code=403, detail='Not enough permissions')
     response = await get_data_for_gpa(token['id'])
     if isinstance(response, GPA):
-        return {'gpa': response}
+        return response
     raise response
 
 
