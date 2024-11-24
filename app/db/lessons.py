@@ -23,7 +23,7 @@ async def get_lessons_from_db(group):
         ''', (group,))
         data = cur.fetchall()
         if data is None:
-            raise HTTPException(status_code=404, detail="No lessons for this group")
+            return HTTPException(status_code=404, detail="No lessons for this group")
         return Lessons(lessons=
         [Lesson(
             id=row[0],
@@ -36,7 +36,7 @@ async def get_lessons_from_db(group):
             deadline=row[13], type_of_lesson=row[14])
             for row in data])
     except (Exception, psycopg2.DatabaseError) as e:
-        raise HTTPException(status_code=500, detail=f'DB error {e}')
+        return HTTPException(status_code=500, detail=f'DB error {e}')
 
 
 async def get_lesson_from_lesson_id_db(lesson_id: int):
@@ -57,7 +57,7 @@ async def get_lesson_from_lesson_id_db(lesson_id: int):
             ''', (lesson_id,))
         data = cur.fetchone()
         if data is None:
-            raise HTTPException(status_code=404, detail="No lesson found with the given ID")
+            return HTTPException(status_code=404, detail="No lesson found with the given ID")
         else:
             return Lesson(id=data[0], subject=data[1],
                           group=data[2], auditory_name=data[3],
@@ -67,7 +67,7 @@ async def get_lesson_from_lesson_id_db(lesson_id: int):
                           teacher_secondname=data[10], teacher_lastname=data[11],
                           task=data[12], deadline=data[13], type_of_lesson=data[14])
     except (Exception, psycopg2.DatabaseError) as e:
-        raise HTTPException(status_code=500, detail=f'DB error {e}')
+        return HTTPException(status_code=500, detail=f'DB error {e}')
     finally:
         cur.close()
         conn.close()

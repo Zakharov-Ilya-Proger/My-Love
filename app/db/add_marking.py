@@ -16,7 +16,6 @@ async def add_students_marking(students: StudentsOnLesson):
             VALUES (%s, %s, %s)
             ''', (students.lesson_id, student_id, students.students[student_id]))
             conn.commit()
-        print(cur.rowcount)
         if cur.rowcount == 0:
             return HTTPException(status_code=404, detail='No student was added')
         return HTTPException(status_code=200, detail='Successfully added students.')

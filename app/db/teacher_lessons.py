@@ -21,7 +21,7 @@ async def get_teacher_lessons(teacher_id):
         ''', (teacher_id,))
         data = cur.fetchall()
         if data is None:
-            raise HTTPException(status_code=404, detail='No such teacher or this teacher has no lessons')
+            return HTTPException(status_code=404, detail='No such teacher or this teacher has no lessons')
         response = LessonsTeacher(
             lessons=[
                 LessonTeacher(
@@ -42,7 +42,7 @@ async def get_teacher_lessons(teacher_id):
         )
         return response
     except (Exception, psycopg2.DatabaseError) as e:
-        raise HTTPException(status_code=500, detail=f'DB error {e}')
+        return HTTPException(status_code=500, detail=f'DB error {e}')
     finally:
         cur.close()
         conn.close()

@@ -1,4 +1,6 @@
 import psycopg2
+from fastapi import HTTPException
+
 from app.db.config import connector
 
 
@@ -24,10 +26,10 @@ async def get_data_for_gpa(student_id):
         ''', (student_id, student_id))
         data = cur.fetchone()
         if data is None:
-            return None, None
-        return float(round(data[0], 3)), True
+            return HTTPException(status_code=404, detail='No data found')
+        return float(round(data[0], 3))
     except (Exception, psycopg2.DatabaseError) as e:
-        return e, False
+        return HTTPException(status_code=500, detail=f"DB error: {e}")
     finally:
         cur.close()
         conn.close()
@@ -47,10 +49,10 @@ async def count_percentile_from_db():
         ''')
         data = cur.fetchone()
         if data is None:
-            return None, None
-        return f"{round(data[0], 3)}%", True
+            return HTTPException(status_code=404, detail='No data found')
+        return f"{round(data[0], 3)}%"
     except (Exception, psycopg2.DatabaseError) as e:
-        return e, False
+        return HTTPException(status_code=500, detail=f"DB error: {e}")
     finally:
         cur.close()
         conn.close()

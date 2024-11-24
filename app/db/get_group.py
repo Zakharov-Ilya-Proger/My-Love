@@ -1,9 +1,8 @@
 import psycopg2
 from fastapi import HTTPException
 
-from .config import connector
-from ..models.group import Group, StudentInfo
-from ..models.group_info import GroupInfo
+from app.db.config import connector
+from app.models.group import Group, StudentInfo
 
 
 async def get_group_db(group_code):
@@ -18,7 +17,7 @@ async def get_group_db(group_code):
         ''')
         data = cur.fetchall()
         if data is None:
-            raise HTTPException(status_code=404, detail='Group not found')
+            return HTTPException(status_code=404, detail='Group not found')
         response = Group(group_code=group_code,
                          group=[StudentInfo(
                              id=row[0],
@@ -29,7 +28,7 @@ async def get_group_db(group_code):
                              for row in data])
         return response
     except (Exception, psycopg2.DatabaseError) as e:
-        raise HTTPException(status_code=500, detail=f'DB error {e}')
+        return HTTPException(status_code=500, detail=f'DB error {e}')
     finally:
         cur.close()
         conn.close()

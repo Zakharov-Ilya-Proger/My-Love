@@ -19,7 +19,7 @@ async def get_student_db(student_code):
         ''', (student_code,))
         data = cur.fetchone()
         if data is None:
-            raise HTTPException(status_code=404, detail='Student not found')
+            return HTTPException(status_code=404, detail='Student not found')
         return Student(id=data[0],
                        name=data[1],
                        secondname=data[2],
@@ -27,7 +27,7 @@ async def get_student_db(student_code):
                        group=data[4],
                        institute=data[5])
     except (Exception, psycopg2.DatabaseError) as e:
-        raise HTTPException(status_code=500, detail=f'DB error {e}')
+        return HTTPException(status_code=500, detail=f'DB error {e}')
     finally:
         cur.close()
         conn.close()
@@ -47,7 +47,7 @@ async def get_student_by_token_db(student_id):
         ''', (student_id,))
         data = cur.fetchone()
         if data is None:
-            raise HTTPException(status_code=404, detail='Student not found')
+            return HTTPException(status_code=404, detail='Student not found')
         return Student(id=data[0],
                        name=data[1],
                        secondname=data[2],
@@ -55,7 +55,7 @@ async def get_student_by_token_db(student_id):
                        group=data[4],
                        institute=data[5])
     except (Exception, psycopg2.DatabaseError) as e:
-        raise HTTPException(status_code=500, detail=f'DB error {e}')
+        return HTTPException(status_code=500, detail=f'DB error {e}')
     finally:
         cur.close()
         conn.close()

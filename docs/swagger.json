@@ -88,7 +88,35 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/GPA"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/users/student/grade": {
+      "get": {
+        "tags": [
+          "Student"
+        ],
+        "summary": "Get Student Grade",
+        "operationId": "get_student_grade_api_users_student_grade_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudentGrade"
+                }
               }
             }
           }
@@ -341,7 +369,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/Group"
+                }
               }
             }
           },
@@ -356,6 +386,32 @@
             }
           }
         }
+      }
+    },
+    "/api/users/teacher/all/grades": {
+      "get": {
+        "tags": [
+          "Teacher"
+        ],
+        "summary": "Get Students Grade",
+        "operationId": "get_students_grade_api_users_teacher_all_grades_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeacherGrade"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/api/users/neutral/lesson/{lesson_id}": {
@@ -488,7 +544,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/Percentile"
+                }
               }
             }
           }
@@ -637,6 +695,43 @@
           "mark"
         ],
         "title": "EstForStudent"
+      },
+      "GPA": {
+        "properties": {
+          "gpa": {
+            "type": "number",
+            "title": "Gpa"
+          }
+        },
+        "type": "object",
+        "required": [
+          "gpa"
+        ],
+        "title": "GPA"
+      },
+      "Group": {
+        "properties": {
+          "group_code": {
+            "type": "string",
+            "title": "Group Code"
+          },
+          "group": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/StudentInfo"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Group"
+          }
+        },
+        "type": "object",
+        "required": [
+          "group_code",
+          "group"
+        ],
+        "title": "Group"
       },
       "GroupInfo": {
         "properties": {
@@ -873,6 +968,19 @@
         ],
         "title": "LessonsTeacher"
       },
+      "Percentile": {
+        "properties": {
+          "percentile": {
+            "type": "number",
+            "title": "Percentile"
+          }
+        },
+        "type": "object",
+        "required": [
+          "percentile"
+        ],
+        "title": "Percentile"
+      },
       "Student": {
         "properties": {
           "id": {
@@ -911,6 +1019,69 @@
         ],
         "title": "Student"
       },
+      "StudentGrade": {
+        "properties": {
+          "subjects": {
+            "additionalProperties": {
+              "items": {
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Subjects",
+            "description": "Dict of subjects in the key and List of marks in value",
+            "examples": [
+              {
+                "\u0410\u043d\u0433\u043b\u0438\u0439\u0441\u043a\u0438\u0439": [
+                  3,
+                  4,
+                  5,
+                  5
+                ],
+                "\u041c\u0430\u0442\u0435\u043c\u0430\u0442\u0438\u043a\u0430": [
+                  5,
+                  4,
+                  5
+                ],
+                "\u0424\u0438\u0437\u0438\u043a\u0430": [
+                  2,
+                  2,
+                  2
+                ]
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "subjects"
+        ],
+        "title": "StudentGrade"
+      },
+      "StudentGradesInGroup": {
+        "properties": {
+          "FIO": {
+            "type": "string",
+            "title": "Fio"
+          },
+          "marks": {
+            "type": "integer",
+            "title": "Marks"
+          },
+          "subjects": {
+            "type": "string",
+            "title": "Subjects"
+          }
+        },
+        "type": "object",
+        "required": [
+          "FIO",
+          "marks",
+          "subjects"
+        ],
+        "title": "StudentGradesInGroup"
+      },
       "StudentGroupInfo": {
         "properties": {
           "id": {
@@ -944,6 +1115,39 @@
         ],
         "title": "StudentGroupInfo"
       },
+      "StudentInfo": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "secondname": {
+            "type": "string",
+            "title": "Secondname"
+          },
+          "lastname": {
+            "type": "string",
+            "title": "Lastname"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "secondname",
+          "lastname",
+          "code"
+        ],
+        "title": "StudentInfo"
+      },
       "StudentsOnLesson": {
         "properties": {
           "lesson_id": {
@@ -964,6 +1168,25 @@
           "students"
         ],
         "title": "StudentsOnLesson"
+      },
+      "TeacherGrade": {
+        "properties": {
+          "groups": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/StudentGradesInGroup"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Groups"
+          }
+        },
+        "type": "object",
+        "required": [
+          "groups"
+        ],
+        "title": "TeacherGrade"
       },
       "ValidationError": {
         "properties": {

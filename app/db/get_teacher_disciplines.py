@@ -17,8 +17,7 @@ async def teacher_disciplines(teacher_id: int):
         ''', (teacher_id,))
         data = cur.fetchall()
         if data is None:
-            raise HTTPException(status_code=404, detail='Teacher disciplines not found')
-            return 0
+            return HTTPException(status_code=404, detail='Teacher disciplines not found')
         lessons_and_related_groups = {}
         for subject, group in data:
             if subject not in lessons_and_related_groups:
@@ -26,8 +25,7 @@ async def teacher_disciplines(teacher_id: int):
             lessons_and_related_groups[subject].append(group)
         return Disciplines(lessons_and_related_groups=lessons_and_related_groups)
     except (Exception, psycopg2.DatabaseError) as e:
-        raise HTTPException(status_code=500, detail=f"DB error {e}")
-        return 0
+        return HTTPException(status_code=500, detail=f"DB error {e}")
     finally:
         cur.close()
         conn.close()
