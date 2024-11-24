@@ -5,6 +5,18 @@ Accept: application/json
 
 ###
 
+GET http://127.0.0.1:3001/api/users/student/grade
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN0dWRlbnQiLCJjb2RlIjoiUzAwMSIsIm1haWwiOiJpdmFub3ZAZXhhbXBsZS5jb20iLCJncm91cCI6Ilx1MDQxM1x1MDQ0MFx1MDQ0M1x1MDQzZlx1MDQzZlx1MDQzMCAxIiwiZXhwIjoxNzMyNDgwNTA1fQ.vuYuaN70HFwaDXlbCFJcjVJjStGSyW7AulVV1YbuL0E
+
+###
+
+GET http://127.0.0.1:3001/api/users/teacher/all/grades
+Accept: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InRlYWNoZXIiLCJjb2RlIjoiMjdcdTA0M2NcdTA0MzJcdTA0NDA0NSIsIm1haWwiOiIyMTQ2Mzc2QGdtYWlsLmNvbSIsImV4cCI6MTczMjQ4MDcxNn0.FsQJZjSdiI3IZxmsITYmnhVRd6WbVPCS-p2vw6pP_Og
+
+###
+
 GET http://127.0.0.1:8000/hello/User
 Accept: application/json
 

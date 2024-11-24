@@ -20,9 +20,9 @@ async def grade_for_student(student_id):
             return HTTPException(status_code=404, detail='Student not found')
         dicted_data = {}
         for name, mark in data:
-            if name in dicted_data:
-                dicted_data[name].append(mark)
-            dicted_data[name] = [mark]
+            if name not in dicted_data:
+                dicted_data[name] = []
+            dicted_data[name].append(mark)
         return StudentGrade(subjects=dicted_data)
     except (Exception, psycopg2.DatabaseError) as e:
         return HTTPException(status_code=500, detail=f"DB error {e}")
