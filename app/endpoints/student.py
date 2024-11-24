@@ -1,11 +1,11 @@
 from typing import Annotated
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.security import APIKeyHeader
-from app.db.get_data_for_per_and_gpa import get_data_for_gpa
+from app.db.get_data_for_per_and_gpa import get_data_for_gpa, count_percentile_from_db
 from app.db.get_grade import grade_for_student
 from app.db.get_student import get_student_by_token_db
 from app.db.lessons import get_lessons_from_db
-from app.models.Statist import GPA
+from app.models.Statist import GPA, Percentile
 from app.models.grade import StudentGrade
 from app.models.lesson import Lessons
 from app.models.student import Student
@@ -56,5 +56,16 @@ async def get_student_grade(authorization: Annotated[str | None, Depends(api_key
         raise HTTPException(status_code=403, detail='Not enough permissions')
     response = await grade_for_student(token['id'])
     if isinstance(response, StudentGrade):
+        return response
+    raise response
+
+
+@student.get("/percentile", response_model=Percentile)
+async def get_gpa(authorisation: Annotated[str | None, Depends(api_key_header)] = None,):
+    token = decode_token(authorisation)
+    if token is None or token['role'] != 'student':
+        raise HTTPException(status_code=403, detail='Not enough permissions')
+    response = await count_percentile_from_db(token["id"])
+    if isinstance(response, Percentile):
         return response
     raise response

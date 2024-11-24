@@ -35,19 +35,19 @@ async def get_data_for_gpa(student_id):
         cur.close()
         conn.close()
 
-async def count_percentile_from_db():
+async def count_percentile_from_db(student_id):
     conn = psycopg2.connect(**connector)
     cur = conn.cursor()
     try:
         cur.execute('''
         SELECT
-            SUM(CASE WHEN gpa > avg_gpa THEN 1 ELSE 0 END)::FLOAT / COUNT(*) * 100 AS ratio_above_average
+            SUM(CASE WHEN gpa > calculate_gpa(%s) THEN 1 ELSE 0 END)::FLOAT / COUNT(*) * 100 AS ratio_above_average
         FROM (
             SELECT calculate_gpa(s.id) AS gpa,
                    (SELECT AVG(calculate_gpa(s2.id)) FROM students s2) AS avg_gpa
             FROM students AS s
         ) AS all_s_gpa; 
-        ''')
+        ''', (student_id,))
         data = cur.fetchone()
         if data is None:
             return HTTPException(status_code=404, detail='No data found')

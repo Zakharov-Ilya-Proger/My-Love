@@ -54,17 +54,6 @@ async def get_entrances(authorization: Annotated[str | None, Depends(api_key_hea
     raise response
 
 
-@neutral.get("/percentile", response_model=Percentile)
-async def get_gpa(authorisation: Annotated[str | None, Depends(api_key_header)] = None,):
-    token = decode_token(authorisation)
-    if token is None or token['role'] not in ['student', 'teacher', 'admin']:
-        raise HTTPException(status_code=403, detail='Not enough permissions')
-    response = await count_percentile_from_db()
-    if isinstance(response, Percentile):
-        return response
-    raise response
-
-
 @neutral.get("/enter/token")
 async def get_enter_token_end(authorisation: Annotated[str | None, Depends(api_key_header)] = None):
     token = decode_token(authorisation)

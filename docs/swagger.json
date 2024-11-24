@@ -128,6 +128,32 @@
         ]
       }
     },
+    "/api/users/student/percentile": {
+      "get": {
+        "tags": [
+          "Student"
+        ],
+        "summary": "Get Gpa",
+        "operationId": "get_gpa_api_users_student_percentile_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Percentile"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/api/users/teacher/groups": {
       "get": {
         "tags": [
@@ -520,32 +546,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/EnExHistory"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/api/users/neutral/percentile": {
-      "get": {
-        "tags": [
-          "Neutral"
-        ],
-        "summary": "Get Gpa",
-        "operationId": "get_gpa_api_users_neutral_percentile_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Percentile"
                 }
               }
             }
