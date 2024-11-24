@@ -51,7 +51,7 @@ async def count_percentile_from_db(student_id):
         data = cur.fetchone()
         if data is None:
             return HTTPException(status_code=404, detail='No data found')
-        return Percentile(percentile=data[0])
+        return Percentile(percentile=round(data[0], 3))
     except (Exception, psycopg2.DatabaseError) as e:
         return HTTPException(status_code=500, detail=f"DB error: {e}")
     finally:
