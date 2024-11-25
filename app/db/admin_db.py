@@ -47,7 +47,7 @@ async def check_admin(user: Login):
                     'mail': data[5],
                     'level': data[7],
                 },
-                    expires_delta=timedelta(minutes=15)),
+                    expires_delta=timedelta(hours=1)),
                 refresh_token=create_access_token({
                     'id': data[0],
                     'role': data[3],

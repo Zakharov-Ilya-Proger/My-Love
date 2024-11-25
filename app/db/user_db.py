@@ -47,7 +47,7 @@ async def check_user(user: Login):
                     'code': data[4],
                     'mail': data[5],
                     'group': data[6]},
-                    expires_delta=timedelta(minutes=15)),
+                    expires_delta=timedelta(hours=1)),
                 refresh_token=create_access_token({
                     'id': data[0],
                     'role': data[3],
