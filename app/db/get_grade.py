@@ -57,7 +57,6 @@ async def get_students_grade_for_teacher(teacher_id):
             if group_code not in subject_data[subject_name]:
                 subject_data[subject_name][group_code] = []
 
-            # Проверяем, есть ли уже студент в группе, и добавляем оценку, если есть
             existing_student = next((s for s in subject_data[subject_name][group_code] if s.FIO == FIO), None)
             if existing_student:
                 existing_student.marks.append(mark)
