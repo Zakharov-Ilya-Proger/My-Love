@@ -16,10 +16,11 @@ async def add_students_marking(students: StudentsOnLesson):
             VALUES (%s, %s, %s)
             ''', (students.lesson_id, student_id, students.students[student_id]))
             conn.commit()
-        if cur.rowcount == 0:
+        if cur.rowcount != len(students.students.keys()):
             return HTTPException(status_code=404, detail='No student was added')
         return HTTPException(status_code=200, detail='Successfully added students.')
     except (Exception, psycopg2.DatabaseError) as e:
+        conn.rollback()
         return HTTPException(status_code=500, detail=f"DB error {e}")
     finally:
         cur.close()

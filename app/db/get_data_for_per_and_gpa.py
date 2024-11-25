@@ -10,21 +10,8 @@ async def get_data_for_gpa(student_id):
     cur = conn.cursor()
     try:
         cur.execute('''
-        SELECT SUM(gpa) from (SELECT avg(mark.mark) * s.duration /
-       (SELECT SUM(unique_subjects.duration)
-             FROM (
-                 SELECT DISTINCT s2.name, s2.duration
-                 FROM public.mark m2
-                 JOIN public.lessons l2 ON l2.id = m2.lesson_id
-                 JOIN public.subjects s2 ON s2.id = l2.subject_id
-                 WHERE m2.student_id = %s
-             ) AS unique_subjects) as gpa
-        FROM mark
-                 JOIN public.lessons l on mark.lesson_id = l.id
-                JOIN public.subjects s on s.id = l.subject_id
-        WHERE student_id = %s
-        GROUP BY s.name, s.duration) as mlsg
-        ''', (student_id, student_id))
+        SELECT * FROM calculate_gpa(%s)
+        ''', (student_id,))
         data = cur.fetchone()
         if data is None:
             return HTTPException(status_code=404, detail='No data found')

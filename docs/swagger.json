@@ -154,6 +154,76 @@
         ]
       }
     },
+    "/api/users/student/add/custom/lesson": {
+      "post": {
+        "tags": [
+          "Student"
+        ],
+        "summary": "Add Custom Lesson",
+        "operationId": "add_custom_lesson_api_users_student_add_custom_lesson_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomLesson"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/api/users/student/custom/lessons": {
+      "get": {
+        "tags": [
+          "Student"
+        ],
+        "summary": "Get Custom Lessons",
+        "operationId": "get_custom_lessons_api_users_student_custom_lessons_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomLessons"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/api/users/teacher/groups": {
       "get": {
         "tags": [
@@ -440,6 +510,50 @@
         ]
       }
     },
+    "/api/users/teacher/add/task": {
+      "post": {
+        "tags": [
+          "Teacher"
+        ],
+        "summary": "Add Task",
+        "operationId": "add_task_api_users_teacher_add_task_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Task"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/api/users/neutral/lesson/{lesson_id}": {
       "get": {
         "tags": [
@@ -608,6 +722,108 @@
           "branch_id"
         ],
         "title": "AddEnterExit"
+      },
+      "CustomLesson": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Time"
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Time"
+          },
+          "auditory_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Auditory Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "start_time",
+          "end_time",
+          "auditory_id"
+        ],
+        "title": "CustomLesson"
+      },
+      "CustomLessonForStudent": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Time"
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Time"
+          },
+          "auditory": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Auditory"
+          },
+          "address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Address"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "start_time",
+          "end_time",
+          "auditory",
+          "address"
+        ],
+        "title": "CustomLessonForStudent"
+      },
+      "CustomLessons": {
+        "properties": {
+          "custom_lessons": {
+            "items": {
+              "$ref": "#/components/schemas/CustomLessonForStudent"
+            },
+            "type": "array",
+            "title": "Custom Lessons"
+          }
+        },
+        "type": "object",
+        "required": [
+          "custom_lessons"
+        ],
+        "title": "CustomLessons"
       },
       "Disciplines": {
         "properties": {
@@ -906,12 +1122,26 @@
             "title": "End Time"
           },
           "task": {
-            "type": "string",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Task"
           },
           "deadline": {
-            "type": "string",
-            "format": "date-time",
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Deadline"
           },
           "type_of_lesson": {
@@ -1168,6 +1398,37 @@
           "students"
         ],
         "title": "StudentsOnLesson"
+      },
+      "Task": {
+        "properties": {
+          "lesson_id": {
+            "type": "integer",
+            "title": "Lesson Id"
+          },
+          "task": {
+            "type": "string",
+            "title": "Task"
+          },
+          "deadline": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deadline"
+          }
+        },
+        "type": "object",
+        "required": [
+          "lesson_id",
+          "task",
+          "deadline"
+        ],
+        "title": "Task"
       },
       "TeacherGrade": {
         "properties": {

@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 from pydantic import BaseModel
 
 
@@ -13,8 +13,8 @@ class LessonTeacher(BaseModel):
     branch_address: str
     start_time: datetime
     end_time: datetime
-    task: str
-    deadline: datetime
+    task: Optional[str]
+    deadline: Optional[datetime]
     type_of_lesson: str
 
 

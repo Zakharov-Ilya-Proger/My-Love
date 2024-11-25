@@ -1,11 +1,14 @@
 from typing import Annotated
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.security import APIKeyHeader
+
+from app.db.custom_lessons import add_custom_lesson_db, get_custom_lessons_db
 from app.db.get_data_for_per_and_gpa import get_data_for_gpa, count_percentile_from_db
 from app.db.get_grade import grade_for_student
 from app.db.get_student import get_student_by_token_db
 from app.db.lessons import get_lessons_from_db
 from app.models.Statist import GPA, Percentile
+from app.models.custom_lessons import CustomLesson, CustomLessons
 from app.models.grade import StudentGrade
 from app.models.lesson import Lessons
 from app.models.student import Student
@@ -67,5 +70,24 @@ async def get_gpa(authorisation: Annotated[str | None, Depends(api_key_header)] 
         raise HTTPException(status_code=403, detail='Not enough permissions')
     response = await count_percentile_from_db(token["id"])
     if isinstance(response, Percentile):
+        return response
+    raise response
+
+
+@student.post("/add/custom/lesson")
+async def add_custom_lesson(lesson: CustomLesson, authorisation: Annotated[str | None, Depends(api_key_header)] = None):
+    token = decode_token(authorisation)
+    if token is None or token['role'] != 'student':
+        raise HTTPException(status_code=403, detail='Not enough permissions')
+    raise await add_custom_lesson_db(lesson, token)
+
+
+@student.get("/custom/lessons", response_model=CustomLessons)
+async def get_custom_lessons(authorisation: Annotated[str | None, Depends(api_key_header)] = None):
+    token = decode_token(authorisation)
+    if token is None or token['role'] != 'student':
+        raise HTTPException(status_code=403, detail='Not enough permissions')
+    response = await get_custom_lessons_db(token['id'])
+    if isinstance(response, CustomLessons):
         return response
     raise response

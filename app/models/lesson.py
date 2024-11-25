@@ -23,3 +23,9 @@ class Lesson(BaseModel):
 
 class Lessons(BaseModel):
     lessons: List[Lesson]
+
+
+class Task(BaseModel):
+    lesson_id: int
+    task: str
+    deadline: Optional[datetime]

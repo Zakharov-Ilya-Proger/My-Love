@@ -46,12 +46,13 @@ async def db_post_person_entrances(table, token, column, en_ex_data: AddEnterExi
               en_ex_data.branch_id,
               en_ex_data.time,
               en_ex_data.status))
+        conn.commit()
         if cur.rowcount == 0:
             return HTTPException(status_code=404, detail='No such person or branch')
         return HTTPException(status_code=200, detail='Enter/exit added')
     except (Exception, psycopg2.DatabaseError) as e:
+        conn.rollback()
         return HTTPException(status_code=500, detail=f'DB error {e}')
     finally:
-        conn.commit()
         cur.close()
         conn.close()

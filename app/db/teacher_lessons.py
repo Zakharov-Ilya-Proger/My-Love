@@ -16,7 +16,7 @@ async def get_teacher_lessons(teacher_id):
         JOIN public.subjects s on l.subject_id = s.id
         JOIN public.auditories a on l.auditory_id = a.id
         JOIN public.branches as b on a.branch_id = b.id
-        JOIN public.tasks t on l.id = t.lesson_id
+        LEFT JOIN public.tasks t on l.id = t.lesson_id
         WHERE teacher_id = %s
         ''', (teacher_id,))
         data = cur.fetchall()

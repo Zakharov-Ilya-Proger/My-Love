@@ -8,11 +8,13 @@ from app.db.get_group import get_group_db
 from app.db.get_student import get_student_db
 from app.db.get_teacher_disciplines import teacher_disciplines
 from app.db.groups import get_groups_db
+from app.db.tasks import add_task_to_db
 from app.db.teacher_lessons import get_teacher_lessons
 from app.models.disciplines_model import Disciplines
 from app.models.grade import TeacherGrade
 from app.models.group import Group
 from app.models.group_info import GroupInfo
+from app.models.lesson import Task
 from app.models.student import Student
 from app.models.student_est import EstForStudent
 from app.models.students_on_lesson import StudentsOnLesson
@@ -105,3 +107,11 @@ async def get_students_grade(authorization: Annotated[str | None, Depends(api_ke
     if isinstance(response, TeacherGrade):
         return response
     raise response
+
+
+@teacher.post("/add/task")
+async def add_task(task: Task, authorization: Annotated[str | None, Depends(api_key_header)] = None):
+    token = decode_token(authorization)
+    if token['role'] != 'teacher' or token is None:
+        raise HTTPException(status_code=403, detail='You have no rights to set this information')
+    raise await add_task_to_db(task)
