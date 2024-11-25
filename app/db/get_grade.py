@@ -35,7 +35,8 @@ async def get_students_grade_for_teacher(teacher_id):
     cur = conn.cursor()
     try:
         cur.execute('''
-        SELECT group_code, m.mark, s.name, s.secondname, s.lastname, s2.name FROM mark as m
+        SELECT group_code, m.mark, s.name, s.secondname, s.lastname, s2.name, s.id 
+        FROM mark as m
         JOIN public.lessons l on m.lesson_id = l.id
         JOIN public.students s on m.student_id = s.id
         JOIN public.groups g on s.group_id = g.id
@@ -47,9 +48,9 @@ async def get_students_grade_for_teacher(teacher_id):
             return HTTPException(status_code=404, detail='Teacher not found')
 
         subject_data = {}
-        for group_code, mark, name, secondname, lastname, subject_name in data:
+        for group_code, mark, name, secondname, lastname, subject_name, s_id in data:
             FIO = f"{name} {secondname} {lastname}"
-            student_grade = StudentGrades(FIO=FIO, marks=[mark])
+            student_grade = StudentGrades(FIO=FIO, marks=[mark], s_id=s_id)
 
             if subject_name not in subject_data:
                 subject_data[subject_name] = {}

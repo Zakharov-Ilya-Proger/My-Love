@@ -17,6 +17,7 @@ class StudentGrade(BaseModel):
 
 class StudentGrades(BaseModel):
     FIO: str
+    s_id: int
     marks: List[int]
 
 class GroupGrades(RootModel):

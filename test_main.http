@@ -22,6 +22,11 @@ Accept: application/json
 
 ###
 
+GET http://127.0.0.1:3001/api/users/teacher/info
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InRlYWNoZXIiLCJjb2RlIjoiMjdcdTA0M2NcdTA0MzJcdTA0NDA0NSIsIm1haWwiOiIyMTQ2Mzc2QGdtYWlsLmNvbSIsImV4cCI6MTczMjU4NDE0Nn0.OhaPgbNEbC4gwXbr6Z4-nBVv3B2_KuXx9BKcfnkt_7E
+
+###
+
 GET http://127.0.0.1:3001/neutral/entrances
 Accept: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6InN0dWRlbnQiLCJjb2RlIjoiUzAwMSIsIm1haWwiOiJpdmFub3ZAZXhhbXBsZS5jb20iLCJncm91cCI6Ilx1MDQxM1x1MDQ0MFx1MDQ0M1x1MDQzZlx1MDQzZlx1MDQzMCAxIiwiZXhwIjoxNzMyMjIxMDU0fQ.rE6LDaxD35-kuszZS-R5DVhcrz1wAielflaMbFPV5pU

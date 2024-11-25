@@ -224,6 +224,32 @@
         ]
       }
     },
+    "/api/users/teacher/info": {
+      "get": {
+        "tags": [
+          "Teacher"
+        ],
+        "summary": "Get Teacher Info",
+        "operationId": "get_teacher_info_api_users_teacher_info_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Teacher"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/api/users/teacher/groups": {
       "get": {
         "tags": [
@@ -1302,6 +1328,10 @@
             "type": "string",
             "title": "Fio"
           },
+          "s_id": {
+            "type": "integer",
+            "title": "S Id"
+          },
           "marks": {
             "items": {
               "type": "integer"
@@ -1313,6 +1343,7 @@
         "type": "object",
         "required": [
           "FIO",
+          "s_id",
           "marks"
         ],
         "title": "StudentGrades"
@@ -1441,6 +1472,59 @@
           "deadline"
         ],
         "title": "Task"
+      },
+      "Teacher": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "secondname": {
+            "type": "string",
+            "title": "Secondname"
+          },
+          "lastname": {
+            "type": "string",
+            "title": "Lastname"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "dep_name": {
+            "type": "string",
+            "title": "Dep Name"
+          },
+          "institute": {
+            "type": "string",
+            "title": "Institute"
+          },
+          "subjects": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subjects"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "secondname",
+          "lastname",
+          "code",
+          "dep_name",
+          "institute",
+          "subjects"
+        ],
+        "title": "Teacher"
       },
       "TeacherGrade": {
         "additionalProperties": {

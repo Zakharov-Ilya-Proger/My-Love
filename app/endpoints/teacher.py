@@ -9,6 +9,7 @@ from app.db.get_student import get_student_db
 from app.db.get_teacher_disciplines import teacher_disciplines
 from app.db.groups import get_groups_db
 from app.db.tasks import add_task_to_db
+from app.db.teacher_info import get_teacher_info_db
 from app.db.teacher_lessons import get_teacher_lessons
 from app.models.disciplines_model import Disciplines
 from app.models.grade import TeacherGrade
@@ -18,12 +19,24 @@ from app.models.lesson import Task
 from app.models.student import Student
 from app.models.student_est import EstForStudent
 from app.models.students_on_lesson import StudentsOnLesson
+from app.models.teacher import Teacher
 from app.models.teacher_lessons import LessonsTeacher
 from app.tokens.decode import decode_token
 
 teacher = APIRouter()
 
 api_key_header = APIKeyHeader(name="Authorization")
+
+
+@teacher.get("/info", response_model=Teacher)
+async def get_teacher_info(authorization: Annotated[str | None, Depends(api_key_header)] = None):
+    token = decode_token(authorization)
+    if token is None or token['role'] != "teacher":
+        raise HTTPException(status_code=403, detail="Unauthorized")
+    response = await get_teacher_info_db(token['id'])
+    if isinstance(response, Teacher):
+        return response
+    raise response
 
 
 @teacher.get("/groups", response_model=GroupInfo)
