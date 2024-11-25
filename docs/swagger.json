@@ -949,6 +949,13 @@
         ],
         "title": "Group"
       },
+      "GroupGrades": {
+        "items": {
+          "$ref": "#/components/schemas/StudentGrades"
+        },
+        "type": "array",
+        "title": "GroupGrades"
+      },
       "GroupInfo": {
         "properties": {
           "groups": {
@@ -1289,28 +1296,26 @@
         ],
         "title": "StudentGrade"
       },
-      "StudentGradesInGroup": {
+      "StudentGrades": {
         "properties": {
           "FIO": {
             "type": "string",
             "title": "Fio"
           },
           "marks": {
-            "type": "integer",
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
             "title": "Marks"
-          },
-          "subjects": {
-            "type": "string",
-            "title": "Subjects"
           }
         },
         "type": "object",
         "required": [
           "FIO",
-          "marks",
-          "subjects"
+          "marks"
         ],
-        "title": "StudentGradesInGroup"
+        "title": "StudentGrades"
       },
       "StudentGroupInfo": {
         "properties": {
@@ -1399,6 +1404,13 @@
         ],
         "title": "StudentsOnLesson"
       },
+      "SubjectGrades": {
+        "additionalProperties": {
+          "$ref": "#/components/schemas/GroupGrades"
+        },
+        "type": "object",
+        "title": "SubjectGrades"
+      },
       "Task": {
         "properties": {
           "lesson_id": {
@@ -1431,22 +1443,10 @@
         "title": "Task"
       },
       "TeacherGrade": {
-        "properties": {
-          "groups": {
-            "additionalProperties": {
-              "items": {
-                "$ref": "#/components/schemas/StudentGradesInGroup"
-              },
-              "type": "array"
-            },
-            "type": "object",
-            "title": "Groups"
-          }
+        "additionalProperties": {
+          "$ref": "#/components/schemas/SubjectGrades"
         },
         "type": "object",
-        "required": [
-          "groups"
-        ],
         "title": "TeacherGrade"
       },
       "ValidationError": {

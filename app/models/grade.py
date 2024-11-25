@@ -1,6 +1,6 @@
 from typing import Dict, List
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, RootModel
 
 
 class StudentGrade(BaseModel):
@@ -15,11 +15,16 @@ class StudentGrade(BaseModel):
     )
 
 
-class StudentGradesInGroup(BaseModel):
+class StudentGrades(BaseModel):
     FIO: str
-    marks: int
-    subjects: str
+    marks: List[int]
 
+class GroupGrades(RootModel):
+    root: List[StudentGrades]
 
-class TeacherGrade(BaseModel):
-    groups: Dict[str, List[StudentGradesInGroup]] = Field()
+class SubjectGrades(RootModel):
+    root: Dict[str, GroupGrades]
+
+class TeacherGrade(RootModel):
+    root: Dict[str, SubjectGrades]
+
