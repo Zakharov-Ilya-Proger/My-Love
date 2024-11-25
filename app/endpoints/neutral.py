@@ -3,9 +3,7 @@ from fastapi import APIRouter, HTTPException, Depends
 from fastapi.security import APIKeyHeader
 from app.db.enter_token import get_enter_token
 from app.db.entryexit_db import db_post_person_entrances, db_get_person_entrances
-from app.db.get_data_for_per_and_gpa import count_percentile_from_db
 from app.db.lessons import get_lesson_from_lesson_id_db
-from app.models.Statist import Percentile
 from app.models.entry_exit import AddEnterExit, EnExHistory
 from app.models.lesson import Lesson
 from app.tokens.decode import decode_token

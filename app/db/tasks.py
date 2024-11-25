@@ -1,7 +1,6 @@
 import psycopg2
 from fastapi import HTTPException
 from psycopg2 import errors
-
 from app.db.config import connector
 from app.models.lesson import Task
 

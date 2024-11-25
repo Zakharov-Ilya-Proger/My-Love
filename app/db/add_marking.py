@@ -1,8 +1,7 @@
 import psycopg2
 from fastapi import HTTPException
-
-from .config import connector
-from ..models.students_on_lesson import StudentsOnLesson
+from app.db.config import connector
+from app.models.students_on_lesson import StudentsOnLesson
 
 
 async def add_students_marking(students: StudentsOnLesson):

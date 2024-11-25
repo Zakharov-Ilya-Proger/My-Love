@@ -1,7 +1,6 @@
 from typing import Annotated
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.security import APIKeyHeader
-
 from app.db.custom_lessons import add_custom_lesson_db, get_custom_lessons_db
 from app.db.get_data_for_per_and_gpa import get_data_for_gpa, count_percentile_from_db
 from app.db.get_grade import grade_for_student
