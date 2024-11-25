@@ -24,7 +24,7 @@ async def refresh(authorization: Annotated[str | None, Header()] = None):
     decoded_token.pop('exp')
     response = RefreshResponse(
         access_token=create_access_token(
-            expires_delta=timedelta(minutes=15),
+            expires_delta=timedelta(hours=1),
             data={
                 'id': decoded_token['id'],
                 'role': decoded_token['role'],

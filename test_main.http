@@ -5,8 +5,8 @@ POST http://localhost:3002/api/auth/student/login
 Content-Type: application/json
 
 {
-  "mail": "ivanov@ample.com",
-  "password": "password2"
+  "mail": "pipin@example.com",
+  "password": "password3"
 }
 
 ###
@@ -41,7 +41,7 @@ POST http://localhost:3002/api/auth/teacher/login
 Content-Type: application/json
 
 {
-  "mail": "2146376@ail.com",
+  "mail": "2146376@gmail.com",
   "password": "password1"
 }
 
