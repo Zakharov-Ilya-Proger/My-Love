@@ -9,7 +9,7 @@ async def check_access_to_auditory_db(table_name, id_name, access: AccessControl
     cur = conn.cursor()
     try:
         query = f'''
-        SELECT  type
+        SELECT  type, id
         FROM accesscontrol_{table_name}
         WHERE {id_name} = %s
         AND
@@ -23,10 +23,10 @@ async def check_access_to_auditory_db(table_name, id_name, access: AccessControl
             return HTTPException(status_code=404, detail='Access Denied')
         query = f'''
         INSERT INTO accesshistory_{table_name}
-        ({id_name}, auditory_id, access_start_time, access_type, reason)
-        VALUES (%s, %s, %s, %s, %s)
+        ({id_name}, auditory_id, access_start_time, access_type, reason, control)
+        VALUES (%s, %s, %s, %s, %s, %s)
         '''
-        cur.execute(query, (per_id, access.audit_id, access.time, data[0], access.reason))
+        cur.execute(query, (per_id, access.audit_id, access.time, data[0], access.reason, data[1]))
         conn.commit()
         if cur.rowcount == 0:
             return HTTPException(status_code=409, detail='Control denied')

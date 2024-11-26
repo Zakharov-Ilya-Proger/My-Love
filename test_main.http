@@ -22,7 +22,7 @@ Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN3ZWV0I
 
 ###
 
-POST http://127.0.0.1:3004/api/entrance/auditory/get
+POST http://127.0.0.1:3004/api/entrance/auditory/open
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN3ZWV0Iiwic2Vjb25kbmFtZSI6IkFzcyIsImxhc3RuYW1lIjoiTG92ZSIsInJvbGVfaWQiOjIsImNvZGUiOiIyN9C80LLRgDQ1IiwiaWF0IjoxNzMyMzE1MjQxLCJleHAiOjE3NjM4NTEyNDF9.V6s_kHIEhJbf_pCxgz4EAsf3MyPJTMiy5RPkAS-2l5A
 
