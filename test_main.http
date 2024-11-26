@@ -9,3 +9,36 @@ GET http://127.0.0.1:8000/hello/User
 Accept: application/json
 
 ###
+
+POST http://127.0.0.1:3004/api/entrance/add
+Content-Type: application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN3ZWV0Iiwic2Vjb25kbmFtZSI6IkFzcyIsImxhc3RuYW1lIjoiTG92ZSIsInJvbGVfaWQiOjIsImNvZGUiOiIyN9C80LLRgDQ1IiwiaWF0IjoxNzMyMzE1MjQxLCJleHAiOjE3NjM4NTEyNDF9.V6s_kHIEhJbf_pCxgz4EAsf3MyPJTMiy5RPkAS-2l5A
+
+{
+    "time": "2024-11-21 20:29:50.000000",
+    "status": "вход",
+    "branch_id": 11
+}
+
+###
+
+POST http://127.0.0.1:3004/api/entrance/auditory/get
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN3ZWV0Iiwic2Vjb25kbmFtZSI6IkFzcyIsImxhc3RuYW1lIjoiTG92ZSIsInJvbGVfaWQiOjIsImNvZGUiOiIyN9C80LLRgDQ1IiwiaWF0IjoxNzMyMzE1MjQxLCJleHAiOjE3NjM4NTEyNDF9.V6s_kHIEhJbf_pCxgz4EAsf3MyPJTMiy5RPkAS-2l5A
+
+{
+  "audit_id": 6,
+  "reason": "надо",
+  "time": "2024-11-26 21:18:32.224000"
+}
+
+###
+
+PUT http://127.0.0.1:3004/api/entrance/auditory/close
+Content-Type: application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN3ZWV0Iiwic2Vjb25kbmFtZSI6IkFzcyIsImxhc3RuYW1lIjoiTG92ZSIsInJvbGVfaWQiOjIsImNvZGUiOiIyN9C80LLRgDQ1IiwiaWF0IjoxNzMyMzE1MjQxLCJleHAiOjE3NjM4NTEyNDF9.V6s_kHIEhJbf_pCxgz4EAsf3MyPJTMiy5RPkAS-2l5A
+
+{
+  "audit_id": 6,
+  "time": "2024-11-26 21:30:32.224000"
+}
