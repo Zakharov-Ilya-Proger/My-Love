@@ -19,6 +19,7 @@ async def get_lessons_from_db(group):
             JOIN public.teachers u on u.id = l.teacher_id
             LEFT JOIN public.tasks t on l.id = t.lesson_id
         WHERE g.group_code = %s
+        ORDER BY l.start_time
         ''', (group,))
         data = cur.fetchall()
         if data is None:
