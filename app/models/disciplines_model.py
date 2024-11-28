@@ -1,6 +1,6 @@
 from typing import Dict, List
-from pydantic import BaseModel
+from pydantic import BaseModel, RootModel
 
 
-class Disciplines(BaseModel):
-    lessons_and_related_groups: Dict[str, List[str]]
+class Disciplines(RootModel):
+    root: Dict[str, List[str]]

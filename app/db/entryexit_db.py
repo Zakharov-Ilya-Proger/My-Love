@@ -1,7 +1,7 @@
 import psycopg2
 from fastapi import HTTPException
 from app.db.config import connector
-from app.models.entry_exit import EnExHistory, EnEx, AddEnterExit
+from app.models.entry_exit import EnExHistory, EnEx
 
 
 async def db_get_person_entrances(person_id, id_column_name, table):
@@ -18,7 +18,7 @@ async def db_get_person_entrances(person_id, id_column_name, table):
         data = cur.fetchall()
         if data is None:
             return HTTPException(status_code=404, detail='No entry/exit history for this person')
-        response = EnExHistory(history=[EnEx(
+        response = EnExHistory(root=[EnEx(
             branch_name=row[0],
             branch_address=row[1],
             time=row[2],
@@ -27,31 +27,6 @@ async def db_get_person_entrances(person_id, id_column_name, table):
         return response
     except (Exception, psycopg2.DatabaseError) as e:
         return HTTPException(status_code=500, detail=f'DB error in entry exit {e}')
-    finally:
-        cur.close()
-        conn.close()
-
-
-async def db_post_person_entrances(table, token, column, en_ex_data: AddEnterExit):
-    conn = psycopg2.connect(**connector)
-    cur = conn.cursor()
-    try:
-        query = f'''
-        INSERT INTO {table} ({column}, branch_id, time, status)
-        VALUES (%s, %s, %s, %s)
-        '''
-        cur.execute(query, (
-              token['id'],
-              en_ex_data.branch_id,
-              en_ex_data.time,
-              en_ex_data.status))
-        conn.commit()
-        if cur.rowcount == 0:
-            return HTTPException(status_code=404, detail='No such person or branch')
-        return HTTPException(status_code=200, detail='Enter/exit added')
-    except (Exception, psycopg2.DatabaseError) as e:
-        conn.rollback()
-        return HTTPException(status_code=500, detail=f'DB error {e}')
     finally:
         cur.close()
         conn.close()

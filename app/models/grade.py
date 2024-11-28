@@ -2,8 +2,8 @@ from typing import Dict, List
 from pydantic import BaseModel, Field, RootModel
 
 
-class StudentGrade(BaseModel):
-    subjects: Dict[str, List[int]] = Field(
+class StudentGrade(RootModel):
+    root: Dict[str, List[int]] = Field(
         ...,
         description="Dict of subjects in the key and List of marks in value",
         examples=[{

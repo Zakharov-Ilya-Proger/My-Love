@@ -62,7 +62,7 @@ async def get_custom_lessons_db(student_id):
                                                    and row[5] is None
                                    else str(row[5]) + " " + str(row[4]))
             for row in data]
-        return CustomLessons(custom_lessons=response)
+        return CustomLessons(root=response)
     except (Exception, psycopg2.DatabaseError) as error:
         return HTTPException(status_code=500, detail=f"DB error: {error}")
     finally:

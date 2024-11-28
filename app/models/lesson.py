@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import List, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, RootModel
 
 
 class Lesson(BaseModel):
@@ -21,8 +21,8 @@ class Lesson(BaseModel):
     type_of_lesson: str
 
 
-class Lessons(BaseModel):
-    lessons: List[Lesson]
+class Lessons(RootModel):
+    root: List[Lesson]
 
 
 class Task(BaseModel):

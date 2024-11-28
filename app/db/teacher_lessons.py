@@ -24,7 +24,7 @@ async def get_teacher_lessons(teacher_id):
         if data is None:
             return HTTPException(status_code=404, detail='No such teacher or this teacher has no lessons')
         response = LessonsTeacher(
-            lessons=[
+            root=[
                 LessonTeacher(
                     id=row[0],
                     subject=row[1],

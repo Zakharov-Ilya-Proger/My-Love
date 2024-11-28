@@ -23,7 +23,7 @@ async def teacher_disciplines(teacher_id: int):
             if subject not in lessons_and_related_groups:
                 lessons_and_related_groups[subject] = []
             lessons_and_related_groups[subject].append(group)
-        return Disciplines(lessons_and_related_groups=lessons_and_related_groups)
+        return Disciplines(root=lessons_and_related_groups)
     except (Exception, psycopg2.DatabaseError) as e:
         return HTTPException(status_code=500, detail=f"DB error {e}")
     finally:

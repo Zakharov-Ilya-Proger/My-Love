@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import Optional, List
-from pydantic import BaseModel
+from pydantic import BaseModel, RootModel
 
 
 class CustomLesson(BaseModel):
@@ -18,5 +18,5 @@ class CustomLessonForStudent(BaseModel):
     address: Optional[str]
 
 
-class CustomLessons(BaseModel):
-    custom_lessons: List[CustomLessonForStudent]
+class CustomLessons(RootModel):
+    root: List[CustomLessonForStudent]

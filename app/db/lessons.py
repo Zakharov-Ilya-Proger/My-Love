@@ -24,7 +24,7 @@ async def get_lessons_from_db(group):
         data = cur.fetchall()
         if data is None:
             return HTTPException(status_code=404, detail="No lessons for this group")
-        return Lessons(lessons=
+        return Lessons(root=
         [Lesson(
             id=row[0],
             subject=row[1], group=row[2],

@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import List
-from pydantic import BaseModel
+from pydantic import BaseModel, RootModel
 
 
 class EnEx(BaseModel):
@@ -10,11 +10,5 @@ class EnEx(BaseModel):
     status: str
 
 
-class EnExHistory(BaseModel):
-    history: List[EnEx]
-
-
-class AddEnterExit(BaseModel):
-    time: datetime
-    status: str
-    branch_id: int
+class EnExHistory(RootModel):
+    root: List[EnEx]

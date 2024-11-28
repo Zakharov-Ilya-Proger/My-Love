@@ -1,5 +1,5 @@
 from typing import List, Dict
-from pydantic import BaseModel
+from pydantic import BaseModel, RootModel
 
 
 class StudentInfo(BaseModel):
@@ -10,6 +10,5 @@ class StudentInfo(BaseModel):
     code: str
 
 
-class Group(BaseModel):
-    group_code: str
-    group: Dict[str, List[StudentInfo]]
+class Group(RootModel):
+    root: List[StudentInfo]

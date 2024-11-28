@@ -31,7 +31,7 @@ async def get_groups_db(teacher_id):
             if group_code not in groups:
                 groups[group_code] = []
             groups[group_code].append(student_info)
-        result = GroupInfo(groups=groups)
+        result = GroupInfo(root=groups)
         return result
     except (Exception, psycopg2.DatabaseError) as e:
         return HTTPException(status_code=500, detail=f'DB error {e}')

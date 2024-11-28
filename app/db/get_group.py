@@ -17,8 +17,7 @@ async def get_group_db(group_code):
         data = cur.fetchall()
         if data is None:
             return HTTPException(status_code=404, detail='Group not found')
-        response = Group(group_code=group_code,
-                         group=[StudentInfo(
+        response = Group(root=[StudentInfo(
                              id=row[0],
                              name=row[1],
                              secondname=row[2],

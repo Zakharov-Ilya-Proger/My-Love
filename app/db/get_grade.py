@@ -22,7 +22,7 @@ async def grade_for_student(student_id):
             if name not in dicted_data:
                 dicted_data[name] = []
             dicted_data[name].append(mark)
-        return StudentGrade(subjects=dicted_data)
+        return StudentGrade(root=dicted_data)
     except (Exception, psycopg2.DatabaseError) as e:
         return HTTPException(status_code=500, detail=f"DB error {e}")
     finally:
